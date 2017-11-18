@@ -17,10 +17,6 @@ console.log(
   )
 );
 
-if (files.directoryExists('bundle.js')) {
-  console.log(chalk.red('Already a git repository!'));
-  process.exit();
-}
 
 const getUserFiles = (callback) => {
   const questions = [
@@ -50,8 +46,18 @@ const getUserFiles = (callback) => {
     }
   ];
 
-   inquirer.prompt(questions).then(answers => {
+   inquirer.prompt(questions).then(({ static, html }) => {
      // LOGIC TO FIND THE FILES USING USER INPUT PATHS
+      console.log(static)
+      const status = new Spinner('Creating SSR environment...');
+      status.start();
+
+      if (files.directoryExists(static)) {
+        console.log(chalk.green(`Found a ${static} directory!`));
+      }
+
+      process.exit();
+    
 
     // Spinner
     //  const status = new Spinner('Creating SSR environment...');
@@ -71,9 +77,11 @@ const getUserFiles = (callback) => {
 
 getUserFiles(function(){
   console.log(arguments);
+
 });
 
 const createServerFile = (callback) => {
+  const fileName = null;
 
 }
 
