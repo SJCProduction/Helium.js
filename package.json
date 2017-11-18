@@ -29,10 +29,13 @@
     "chalk": "^2.3.0",
     "clear": "0.0.1",
     "clui": "^0.3.6",
+    "figlet": "^1.2.0",
     "fs": "0.0.1-security",
     "inquirer": "^4.0.0",
+    "lodash": "^4.17.4",
     "minimist": "^1.2.0",
     "path": "^0.12.7",
-    "preferences": "^1.0.1"
+    "preferences": "^1.0.1",
+    "touch": "^3.1.0"
   }
 }
