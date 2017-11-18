@@ -19,16 +19,17 @@ console.log(
 
 
 const getUserFiles = (callback) => {
+  const defaultResponse = 'oops! directory not found, please try again 🙀'
   const questions = [
     {
       name: 'static',
       type: 'input',
-      message: 'Enter the name of the static folder you want to render:',
-      validate( value ) {
-        if (value.length) {
+      message: 'Enter the name of the static folder (e.g. dist or build):',
+      validate(value) {
+        if (files.directoryExists(value)) {
           return true;
         } else {
-          return 'Enter the path of the static folder:';
+          return defaultResponse;
         }
       }
     },
@@ -37,10 +38,10 @@ const getUserFiles = (callback) => {
       type: 'input',
       message: 'Enter the path of the index.html:',
       validate(value) {
-        if (value.length) {
+        if (files.directoryExists(value)) {
           return true;
         } else {
-          return 'Path of the index.html React is mounted on:';
+          return defaultResponse;
         }
       }
     }
@@ -48,14 +49,14 @@ const getUserFiles = (callback) => {
 
    inquirer.prompt(questions).then(({ static, html }) => {
      // LOGIC TO FIND THE FILES USING USER INPUT PATHS
-      console.log(static)
       const status = new Spinner('Creating SSR environment...');
       status.start();
 
-      if (files.directoryExists(static)) {
-        console.log(chalk.green(`Found a ${static} directory!`));
-      }
+      // if (files.directoryExists(static)) {
+      //   console.log(chalk.green(`Found a ${static} directory!`));
+      // }
 
+      
       process.exit();
     
 
