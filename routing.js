@@ -12,3 +12,5 @@ function reroutingHandler(component, res, url, HTMLPath) {
     });
   }
 }
+
+module.exports reroutingHandler;
