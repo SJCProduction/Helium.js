@@ -61,7 +61,7 @@ const getUserFiles = (callback) => {
 
    
   }).then(user => {
-       fs.writeFile('userInput.js', JSON.stringify(user, null, 2), (err) => {
+       fs.writeFile('userInput.json', JSON.stringify(user, null, 2), (err) => {
          if(err) throw err;
          console.log('file written')
        })
