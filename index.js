@@ -44,7 +44,20 @@ const getUserFiles = (callback) => {
           return defaultResponse;
         }
       }
-    }
+    },
+    {
+      name: 'component',
+      type: 'input',
+      message: 'Enter the root component to mount:',
+      validate(value) {
+        if (files.directoryExists(value)) {
+          return true;
+        } else {
+          return defaultResponse;
+        }
+      }
+    },
+
   ];
 
    inquirer.prompt(questions).then(({ static, html }) => {
