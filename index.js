@@ -19,7 +19,7 @@ console.log(
 
 
 const getUserFiles = (callback) => {
-  const defaultResponse = 'oops! directory not found, please try again 🙀'
+  const defaultResponse = 'oops! directory not found, please try again 🙀 🙀 🙀'
   const questions = [
     {
       name: 'static',
