@@ -35,7 +35,7 @@ const getUserFiles = (callback) => {
       type: 'input',
       message: 'Enter the path of the index.html:',
       validate(value) {
-        if (files.directoryExists(value)) {
+        if (files.indexExists(value)) {
           return true;
         } else {
           return defaultResponse;
@@ -47,7 +47,7 @@ const getUserFiles = (callback) => {
       type: 'input',
       message: 'Enter the root component to mount:',
       validate(value) {
-        if (files.directoryExists(value)) {
+        if (files.componentExists(value)) {
           return true;
         } else {
           return defaultResponse;
