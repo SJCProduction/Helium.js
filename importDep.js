@@ -2,46 +2,34 @@ import express from 'express';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import path from 'path';
+import { StaticRouter } from 'react-router-dom';
 import fs from 'fs';
 
 
 const app = express();
 const PORT = process.env.PORT || 3333;
 
-  function UserData() {
-
-  const ready =  fs.readFileSync('./userInput.json', 'utf8');
+function UserData() {
+  const ready = fs.readFileSync('./userInput.json', 'utf8');
   return ready;
-  };
-
-  const parsedData = JSON.parse(UserData());
-
-  var inputs = {
-    static: parsedData.static,
-    html: parsedData.html,
-    component: parsedData.component
-  }
-
-console.log('user Object ==>', inputs)
+}
+const parsedData = JSON.parse(UserData());
 
 
-// import App from inputs.component;
-import { StaticRouter } from 'react-router-dom';
+const inputs = {
+  static: parsedData.static,
+  html: parsedData.html,
+  component: parsedData.component,
+};
 
-// app.use(express.static(inputs.static));
-app.get('*', (req, res) => {
-  const context = {};
-  let stringComponent = handleRender(App, context, req);
-  reroutingHandler(stringComponent, res, context.url, inputs.html);
+console.log('user Object ==>', inputs);
 
-});
+app.use(express.static(inputs.static));
 
-function handleRender (Component, context, req){
-  let html = ReactDOMServer.renderToString(
-    <StaticRouter location={ req.url } context={ context }>
+function handleRender(Component, context, req) {
+  const html = ReactDOMServer.renderToString(<StaticRouter location={req.url} context={context}>
       <Component />
-    </StaticRouter>
-  );
+    </StaticRouter>,);
   return html;
 }
 
@@ -51,7 +39,7 @@ function reroutingHandler(component, res, url, HTMLPath) {
     res.redirect(url);
     res.end();
   } else {
-    fs.readFile(HTMLPath, 'utf8', function (err, data) {
+    fs.readFile(HTMLPath, 'utf8', (err, data) => {
       if (err) throw err;
       const document = data.replace(/<body>(.*)<\/body>/, `<body><div id="root">${component}</div>$1</body>`);
       res.write(document);
@@ -60,6 +48,12 @@ function reroutingHandler(component, res, url, HTMLPath) {
   }
 }
 
+app.get('*', (req, res) => {
+  const context = {};
+  const stringComponent = handleRender(App, context, req);
+  reroutingHandler(stringComponent, res, context.url, inputs.html);
+});
+
 app.listen(PORT, () => {
-  console.log(`test-ssr16 app is listening on ${PORT}`)
+  console.log(`test-ssr16 app is listening on ${PORT}`);
 });
