@@ -3,6 +3,7 @@ const React = require('react');
 const ReactDOMServer = require('react-dom/server');
 const path = require('path');
 const fs = require('fs');
+const utils = require('./lib/utils.js')
 
 const app = express();
 const PORT = process.env.PORT || 3333;
