@@ -16,9 +16,11 @@ const PORT = process.env.PORT || 3333;
 
 
   function UserData() {
+    
   const ready =  fs.readFileSync('./userInput.json', 'utf8');
   return ready;
   };
+
   const parsedData = JSON.parse(UserData());
 
   var inputs = {
