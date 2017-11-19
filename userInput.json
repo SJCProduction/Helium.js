@@ -1,5 +1,5 @@
 {
-  "static": "dist",
-  "html": "./static/index.html",
-  "component": "./src/app.jsx"
+  "static": "./src/client/dist",
+  "html": "./src/client/static/index.html",
+  "component": "./src/client/src/App.jsx"
 }

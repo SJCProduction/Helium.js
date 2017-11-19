@@ -3,7 +3,8 @@ const React = require('react');
 const ReactDOMServer = require('react-dom/server');
 const path = require('path');
 const fs = require('fs');
-const utils = require('./lib/utils.js')
+const utils = require('./lib/utils.js');
+
 
 const app = express();
 const PORT = process.env.PORT || 3333;
@@ -14,8 +15,21 @@ const inputs = {
   component: './src/components/App.js'
 }
 
+async function retrieveUserData() {
+  try {
+    // const userData = await fs.readFile('./userInput.json');
+    // console.log(userData)
+    const userData = await utils.getUserData()
+    console.log(userData)
+  }
+  catch(err) {
+    if(err) throw err;
+  }
+};
 
-import App from inputs.component;
+retrieveUserData()
+
+// import App from inputs.component;
 import { StaticRouter } from 'react-router-dom';
 
 app.use(express.static(inputs.static));
