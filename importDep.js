@@ -3,20 +3,13 @@ import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import path from 'path';
 import fs from 'fs';
-// import getUserData from './lib/utils.js';
 
 
 const app = express();
 const PORT = process.env.PORT || 3333;
 
-
-// Retrieving user data
-
-
-
-
   function UserData() {
-    
+
   const ready =  fs.readFileSync('./userInput.json', 'utf8');
   return ready;
   };
@@ -29,16 +22,13 @@ const PORT = process.env.PORT || 3333;
     component: parsedData.component
   }
 
-console.log('INVOKE', inputs.static)
-
-
+console.log('user Object ==>', inputs)
 
 
 // import App from inputs.component;
 import { StaticRouter } from 'react-router-dom';
 
 // app.use(express.static(inputs.static));
-console.log('STOP')
 app.get('*', (req, res) => {
   const context = {};
   let stringComponent = handleRender(App, context, req);
