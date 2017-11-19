@@ -1,39 +1,42 @@
-const express = require('express');
-const React = require('react');
-const ReactDOMServer = require('react-dom/server');
-const path = require('path');
-const fs = require('fs');
-const utils = require('./lib/utils.js');
+import express from 'express';
+import React from 'react';
+import ReactDOMServer from 'react-dom/server';
+import path from 'path';
+import fs from 'fs';
+// import getUserData from './lib/utils.js';
 
 
 const app = express();
 const PORT = process.env.PORT || 3333;
 
-const inputs = {
-  static: './public',
-  html: './index.html',
-  component: './src/components/App.js'
-}
 
-async function retrieveUserData() {
-  try {
-    // const userData = await fs.readFile('./userInput.json');
-    // console.log(userData)
-    const userData = await utils.getUserData()
-    console.log(userData)
-  }
-  catch(err) {
-    if(err) throw err;
-  }
-};
+// Retrieving user data
 
-retrieveUserData()
+
+
+
+  function UserData() {
+  const ready =  fs.readFileSync('./userInput.json', 'utf8');
+  return ready;
+  };
+  const parsedData = JSON.parse(UserData());
+
+  var inputs = {
+    static: parsedData.static,
+    html: parsedData.html,
+    component: parsedData.component
+  }
+
+console.log('INVOKE', inputs.static)
+
+
+
 
 // import App from inputs.component;
 import { StaticRouter } from 'react-router-dom';
 
-app.use(express.static(inputs.static));
-
+// app.use(express.static(inputs.static));
+console.log('STOP')
 app.get('*', (req, res) => {
   const context = {};
   let stringComponent = handleRender(App, context, req);
