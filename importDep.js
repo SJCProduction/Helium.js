@@ -11,7 +11,7 @@ const inputs = {
   static: './public',
   html: './index.html',
   component: './src/components/App.js'
-}
+};
 
 
 import App from inputs.component;
