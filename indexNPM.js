@@ -1,6 +1,7 @@
 const sjcReactDOMServer = require('react-dom/server');
 const sjcFS = require('fs');
 
+
 let inputs = {
   html: '',
   component: ''
@@ -10,10 +11,16 @@ function init(config) {
   inputs = config;
 }
 
+console.log('INSIDE OF INDEXNPM', inputs)
+
 const App = require(inputs.component).default;
+
 const StaticRouter = require('react-router-dom').StaticRouter;
 
 function render(req, res, next) {
+//optimize App/Static for every call
+
+
   const context = {};
   let stringComponent = sjcReactDOMServer.renderToString(
     <StaticRouter location={ req.url } context={ context }>
@@ -34,7 +41,7 @@ function render(req, res, next) {
 };
 
 function userData() {
-  const ready = fs.readFileSync('./userInput.json', 'utf8');
+  const ready = sjcFS.readFileSync('./userInput.json', 'utf8');
   return JSON.parse(ready);
 };
 
