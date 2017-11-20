@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start-test": "babel-node importDep.js"
+    "start-test": "babel-node main.js"
   },
   "repository": {
     "type": "git",

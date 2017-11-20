@@ -5,6 +5,7 @@ const path = require('path');
 const { StaticRouter } = require('react-router-dom');
 const fs = require('fs');
 
+
 const app = express();
 const PORT = process.env.PORT || 3333;
 
@@ -19,7 +20,9 @@ const inputs = {
   component: parsedData.component, // "./src/client/src/App.jsx"
 };
 //  User input path for html
-const App = require`${inputs.component}`;
+const App = require(inputs.component).default;
+console.log(App)
+
 // Might need to use absolute path
 app.use(express.static(inputs.static));
 
