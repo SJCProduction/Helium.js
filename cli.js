@@ -1,22 +1,19 @@
 #!/usr/bin/env node
-"use strict";
 
-const chalk       = require('chalk');
-const clear       = require('clear'); // clears the terminal screen
-const inquirer    = require('inquirer');
-const figlet      = require('figlet'); // creates ASCII art from text
-const fs          = require('fs');
-const files       = require('./lib/files');
+'use strict';
+
+const chalk = require('chalk');
+const clear = require('clear'); // clears the terminal screen
+const inquirer = require('inquirer');
+const figlet = require('figlet'); // creates ASCII art from text
+const fs = require('fs');
+const files = require('./lib/files');
 
 clear();
-console.log(
-  chalk.cyanBright(
-    figlet.textSync('CAKE', { horizontalLayout: 'full' })
-  )
-);
+console.log(chalk.cyanBright(figlet.textSync('CAKE', { horizontalLayout: 'full' }),),);
 
 const getUserFiles = (callback) => {
-  const defaultResponse = 'oops! directory not found, please try again 🙀 🙀 🙀'
+  const defaultResponse = 'oops! directory not found, please try again 🙀 🙀 🙀';
   const questions = [
     {
       name: 'static',
@@ -25,10 +22,10 @@ const getUserFiles = (callback) => {
       validate(value) {
         if (files.directoryExists(value)) {
           return true;
-        } else {
+        } 
           return defaultResponse;
-        }
-      }
+        
+      },
     },
     {
       name: 'html',
@@ -37,10 +34,10 @@ const getUserFiles = (callback) => {
       validate(value) {
         if (files.indexExists(value)) {
           return true;
-        } else {
+        } 
           return defaultResponse;
-        }
-      }
+        
+      },
     },
     {
       name: 'component',
@@ -49,32 +46,22 @@ const getUserFiles = (callback) => {
       validate(value) {
         if (files.componentExists(value)) {
           return true;
-        } else {
+        } 
           return defaultResponse;
-        }
-      }
+        
+      },
     },
 
   ];
-   inquirer.prompt(questions).then(userInput => {
-    return userInput
+  inquirer.prompt(questions).then((userInput) => userInput).then((user) => {
+    fs.writeFile('userInput.json', JSON.stringify(user, null, 2), (err) => {
+      if (err) throw err;
+      console.log('file written');
+    });
+  });
+};
 
-   
-  }).then(user => {
-       fs.writeFile('userInput.json', JSON.stringify(user, null, 2), (err) => {
-         if(err) throw err;
-         console.log('file written')
-       })
-  })
-}
-
-getUserFiles(function(){
+getUserFiles(function () {
   console.log(arguments);
 });
-
-
-
-
-
-
 

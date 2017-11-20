@@ -1,29 +1,30 @@
-import express from 'express';
-import React from 'react';
-import ReactDOMServer from 'react-dom/server';
-import path from 'path';
-import { StaticRouter } from 'react-router-dom';
-import fs from 'fs';
-
+const express = require('express');
+const React = require('react');
+const ReactDOMServer = require('react-dom/server');
+const path = require('path');
+const { StaticRouter } = require('react-router-dom');
+const fs = require('fs');
 
 const app = express();
 const PORT = process.env.PORT || 3333;
 
 function UserData() {
+  //readFileSync depreciated - refactor 
+  //tod0-20171119geo
   const ready = fs.readFileSync('./userInput.json', 'utf8');
   return ready;
-}
-const parsedData = JSON.parse(UserData());
-
-
-const inputs = {
-  static: parsedData.static,
-  html: parsedData.html,
-  component: parsedData.component,
 };
+const parsedData = JSON.parse(UserData());
+const inputs = {
+  static: parsedData.static, // "./src/client/dist"
+  html: parsedData.html, // "./src/client/static/index.html"
+  component: parsedData.component, // "./src/client/src/App.jsx"
+};
+//  User input path for html
+const App = require(inputs.component).default;
+console.log(App)
 
-console.log('user Object ==>', inputs);
-
+// Might need to use absolute path
 app.use(express.static(inputs.static));
 
 function handleRender(Component, context, req) {
