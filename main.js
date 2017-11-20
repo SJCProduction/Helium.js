@@ -23,7 +23,7 @@ const inputs = {
 //  User input path for html
 const App = require(inputs.component).default;
 console.log(App)
-
+// 
 // Might need to use absolute path
 app.use(express.static(inputs.static));
 
