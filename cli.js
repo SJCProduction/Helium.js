@@ -8,6 +8,7 @@ const inquirer = require('inquirer');
 const figlet = require('figlet'); // creates ASCII art from text
 const fs = require('fs');
 const files = require('./lib/files');
+const sampleServer = require('./lib/server-script')
 
 clear();
 console.log(chalk.cyanBright(figlet.textSync('CAKE', { horizontalLayout: 'full' }),),);
@@ -51,12 +52,19 @@ const getUserFiles = (callback) => {
         
       },
     },
+    {
+      message: 'YAY! writing SSR server.js in your root folder',
+    },
 
   ];
   inquirer.prompt(questions).then((userInput) => userInput).then((user) => {
-    fs.writeFile('userInput.json', JSON.stringify(user, null, 2), (err) => {
+    fs.writeFileSync('userInput.json', JSON.stringify(user, null, 2), (err) => {
       if (err) throw err;
-      console.log('file written');
+      console.log('userInput.json file written');
+    });
+    fs.writeFileSync('SSRserver.js', sampleServer, (err) => {
+      if (err) throw err;
+      console.log('SSRserver.js file written');
     });
   });
 };

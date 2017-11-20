@@ -15,6 +15,7 @@ function UserData() {
   return ready;
 };
 const parsedData = JSON.parse(UserData());
+
 const inputs = {
   static: parsedData.static, // "./src/client/dist"
   html: parsedData.html, // "./src/client/static/index.html"

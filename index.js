@@ -2,15 +2,15 @@ const sjcReactDOMServer = require('react-dom/server');
 const sjcFS = require('fs');
 
 let inputs = {
-  htmlPath: '',
-  componentPath: ''
+  html: '',
+  component: ''
 };
 
 function init(config) {
   inputs = config;
 }
 
-const App = require(inputs.componentPath).default;
+const App = require(inputs.component).default;
 const StaticRouter = require('react-router-dom').StaticRouter;
 
 function render(req, res, next) {
@@ -24,7 +24,7 @@ function render(req, res, next) {
     res.status = 302;
     res.redirect(context.url);
   } else {
-    sjcFS.readFile(inputs.htmlPath, 'utf8', function (err, data) {
+    sjcFS.readFile(inputs.html, 'utf8', function (err, data) {
       if (err) throw err;
       const document = data.replace(/<body>(.*)<\/body>/, `<body><div id="root">${stringComponent}</div>$1</body>`);
       res.write(document);
@@ -33,5 +33,11 @@ function render(req, res, next) {
   next();
 };
 
+function userData() {
+  const ready = fs.readFileSync('./userInput.json', 'utf8');
+  return JSON.parse(ready);
+};
+
 exports.init = init;
 exports.render = render;
+exports.userData = userData;
