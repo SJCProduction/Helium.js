@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 3333;
 function UserData() {
   //readFileSync depreciated - refactor 
   //tod0-20171119geo
-  const ready = fs.readFileSync('./userInput.json', 'utf8');
+  const ready = fs.readFileSync('../userInput.json', 'utf8');
   return ready;
 };
 const parsedData = JSON.parse(UserData());

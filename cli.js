@@ -10,6 +10,8 @@ const fs = require('fs');
 const files = require('./lib/files');
 const sampleServer = require('./lib/server-script')
 
+
+
 clear();
 console.log(chalk.cyanBright(figlet.textSync('CAKE', { horizontalLayout: 'full' }),),);
 
@@ -52,16 +54,15 @@ const getUserFiles = (callback) => {
         
       },
     },
-    {
-      message: 'YAY! writing SSR server.js in your root folder',
-    },
-
   ];
   inquirer.prompt(questions).then((userInput) => userInput).then((user) => {
+    console.log(sampleServer)
+    console.log('writing userInput')
     fs.writeFileSync('userInput.json', JSON.stringify(user, null, 2), (err) => {
       if (err) throw err;
       console.log('userInput.json file written');
     });
+    console.log('writing SSRserver')
     fs.writeFileSync('SSRserver.js', sampleServer, (err) => {
       if (err) throw err;
       console.log('SSRserver.js file written');
