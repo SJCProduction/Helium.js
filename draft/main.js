@@ -11,10 +11,11 @@ const PORT = process.env.PORT || 3333;
 function UserData() {
   //readFileSync depreciated - refactor 
   //tod0-20171119geo
-  const ready = fs.readFileSync('./userInput.json', 'utf8');
+  const ready = fs.readFileSync('../userInput.json', 'utf8');
   return ready;
 };
 const parsedData = JSON.parse(UserData());
+
 const inputs = {
   static: parsedData.static, // "./src/client/dist"
   html: parsedData.html, // "./src/client/static/index.html"
@@ -23,7 +24,7 @@ const inputs = {
 //  User input path for html
 const App = require(inputs.component).default;
 console.log(App)
-
+// 
 // Might need to use absolute path
 app.use(express.static(inputs.static));
 
