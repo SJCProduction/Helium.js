@@ -17,10 +17,10 @@ module.exports = {
       }
     ]
   },
-    externals: { 'React': 'commonjs react' },
-    plugins: [
-      new webpack.ProvidePlugin({
-        'React': 'react'
-      })
-    ]
+  externals: { 'React': 'commonjs react' },
+  plugins: [
+    new webpack.ProvidePlugin({
+      'React': 'react'
+    })
+  ]
 }
