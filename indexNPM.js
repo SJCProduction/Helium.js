@@ -10,7 +10,6 @@ let inputs = {
 
 function init(config) {
   inputs = config;
-  console.log('INSIDE OF INDEXNPM', inputs)
 }
 
 
@@ -19,7 +18,6 @@ function init(config) {
 
 function render(req, res, next) {
 //optimize App/Static for every call
-console.log('inside render')
 const App = require(inputs.component).default;
 
 const StaticRouter = require('react-router-dom').StaticRouter;
@@ -38,9 +36,10 @@ const StaticRouter = require('react-router-dom').StaticRouter;
       if (err) throw err;
       const document = data.replace(/<body>(.*)<\/body>/, `<body><div id="root">${stringComponent}</div>$1</body>`);
       res.write(document);
+      res.end();
     });
   }
-  next();
+  
 };
 
 function userData() {

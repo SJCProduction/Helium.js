@@ -16,8 +16,6 @@ ssr.init({
 
 app.use(express.static(inputs.static));
 
-app.get('*', ssr.render, (request, response) => {
-  response.writeHead(200, {"Content-Type": "text/html"})
-})
+app.get('*', ssr.render);
 
 app.listen(3333);
