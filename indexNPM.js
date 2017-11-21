@@ -1,3 +1,4 @@
+const React = require('react');
 const sjcReactDOMServer = require('react-dom/server');
 const sjcFS = require('fs');
 
@@ -9,17 +10,19 @@ let inputs = {
 
 function init(config) {
   inputs = config;
+  console.log('INSIDE OF INDEXNPM', inputs)
 }
 
-console.log('INSIDE OF INDEXNPM', inputs)
 
-const App = require(inputs.component).default;
 
-const StaticRouter = require('react-router-dom').StaticRouter;
+
 
 function render(req, res, next) {
 //optimize App/Static for every call
+console.log('inside render')
+const App = require(inputs.component).default;
 
+const StaticRouter = require('react-router-dom').StaticRouter;
 
   const context = {};
   let stringComponent = sjcReactDOMServer.renderToString(
