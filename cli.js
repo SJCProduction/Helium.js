@@ -13,6 +13,7 @@ const sampleServer = require('./lib/server-script')
 
 
 clear();
+
 console.log(chalk.cyanBright(figlet.textSync('CAKE', { horizontalLayout: 'full' }),),);
 
 const getUserFiles = (callback) => {
