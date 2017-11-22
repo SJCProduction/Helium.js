@@ -2055,26 +2055,24 @@ var isExtraneousPopstateEvent = exports.isExtraneousPopstateEvent = function isE
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+/* WEBPACK VAR INJECTION */(function(React) {
 
-
-var React = __webpack_require__(1);
 var sjcReactDOMServer = __webpack_require__(33);
-var sjcFS = __webpack_require__(40);
+var fs = __webpack_require__(40);
 
-var inputs = {
-  html: '',
-  component: ''
-};
+var inputs = {};
 
 function init(config) {
-  inputs = config;
+  inputs.html = config.html;
+  inputs.component = config.component;
+  inputs.App = config.App;
 }
 
 function render(req, res, next) {
   // TODO: optimize App/Static for every call
   // const App = require(inputs.component).default;
 
-  // TODO: temporary fix to 'Critical dependency: the request of a dependency is an expression' warning, which causes 'Cannot find module "." error in webpack bundle
+  // TODO: temporary fix to 'Critical dependency: the request of a dependency is an expression' warning, which causes 'Cannot find module "."' error in webpack bundle
   var App = inputs.App;
 
   var StaticRouter = __webpack_require__(41).StaticRouter;
@@ -2089,7 +2087,7 @@ function render(req, res, next) {
     res.status = 302;
     res.redirect(context.url);
   } else {
-    sjcFS.readFile(inputs.html, 'utf8', function (err, data) {
+    fs.readFile(inputs.html, 'utf8', function (err, data) {
       if (err) throw err;
       var document = data.replace(/<body>(.*)<\/body>/, '<body><div id="root">' + stringComponent + '</div>$1</body>');
       res.write(document);
@@ -2099,13 +2097,14 @@ function render(req, res, next) {
 };
 
 function userData() {
-  var ready = sjcFS.readFileSync('./userInput.json', 'utf8');
+  var ready = fs.readFileSync('./userInput.json', 'utf8');
   return JSON.parse(ready);
 };
 
 exports.init = init;
 exports.render = render;
 exports.userData = userData;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
 /* 31 */
