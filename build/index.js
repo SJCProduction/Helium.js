@@ -164,11 +164,11 @@ if (process.env.NODE_ENV !== 'production') {
   // By explicitly using `prop-types` you are opting into new development behavior.
   // http://fb.me/prop-types-in-prod
   var throwOnDirectAccess = true;
-  module.exports = __webpack_require__(43)(isValidElement, throwOnDirectAccess);
+  module.exports = __webpack_require__(42)(isValidElement, throwOnDirectAccess);
 } else {
   // By explicitly using `prop-types` you are opting into new production behavior.
   // http://fb.me/prop-types-in-prod
-  module.exports = __webpack_require__(44)();
+  module.exports = __webpack_require__(43)();
 }
 
 /***/ }),
@@ -1195,7 +1195,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _pathToRegexp = __webpack_require__(52);
+var _pathToRegexp = __webpack_require__(51);
 
 var _pathToRegexp2 = _interopRequireDefault(_pathToRegexp);
 
@@ -2055,30 +2055,34 @@ var isExtraneousPopstateEvent = exports.isExtraneousPopstateEvent = function isE
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(React) {
 
-var sjcReactDOMServer = __webpack_require__(33);
-var fs = __webpack_require__(40);
+
+var React = __webpack_require__(1);
+var ReactDOMServer = __webpack_require__(33);
+
+var _require = __webpack_require__(40),
+    StaticRouter = _require.StaticRouter;
+
+var fs = __webpack_require__(69);
 
 var inputs = {};
 
-function init(config) {
+var init = function init(config) {
   inputs.html = config.html;
   inputs.component = config.component;
   inputs.App = config.App;
-}
+};
 
-function render(req, res, next) {
+var render = function render(req, res) {
   // TODO: optimize App/Static for every call
   // const App = require(inputs.component).default;
 
   // TODO: temporary fix to 'Critical dependency: the request of a dependency is an expression' warning, which causes 'Cannot find module "."' error in webpack bundle
   var App = inputs.App;
 
-  var StaticRouter = __webpack_require__(41).StaticRouter;
 
   var context = {};
-  var stringComponent = sjcReactDOMServer.renderToString(React.createElement(
+  var stringComponent = ReactDOMServer.renderToString(React.createElement(
     StaticRouter,
     { location: req.url, context: context },
     React.createElement(App, null)
@@ -2096,15 +2100,15 @@ function render(req, res, next) {
   }
 };
 
-function userData() {
-  var ready = fs.readFileSync('./userInput.json', 'utf8');
-  return JSON.parse(ready);
+var userData = function userData() {
+  return JSON.parse(fs.readFileSync('./userInput.json', 'utf8'));
 };
 
-exports.init = init;
-exports.render = render;
-exports.userData = userData;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+module.exports = {
+  init: init,
+  render: render,
+  userData: userData
+};
 
 /***/ }),
 /* 31 */
@@ -6552,12 +6556,6 @@ module.exports = camelize;
 
 /***/ }),
 /* 40 */
-/***/ (function(module, exports) {
-
-module.exports = require("fs");
-
-/***/ }),
-/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6568,11 +6566,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.withRouter = exports.matchPath = exports.Switch = exports.StaticRouter = exports.Router = exports.Route = exports.Redirect = exports.Prompt = exports.NavLink = exports.MemoryRouter = exports.Link = exports.HashRouter = exports.BrowserRouter = undefined;
 
-var _BrowserRouter2 = __webpack_require__(42);
+var _BrowserRouter2 = __webpack_require__(41);
 
 var _BrowserRouter3 = _interopRequireDefault(_BrowserRouter2);
 
-var _HashRouter2 = __webpack_require__(46);
+var _HashRouter2 = __webpack_require__(45);
 
 var _HashRouter3 = _interopRequireDefault(_HashRouter2);
 
@@ -6580,19 +6578,19 @@ var _Link2 = __webpack_require__(26);
 
 var _Link3 = _interopRequireDefault(_Link2);
 
-var _MemoryRouter2 = __webpack_require__(48);
+var _MemoryRouter2 = __webpack_require__(47);
 
 var _MemoryRouter3 = _interopRequireDefault(_MemoryRouter2);
 
-var _NavLink2 = __webpack_require__(51);
+var _NavLink2 = __webpack_require__(50);
 
 var _NavLink3 = _interopRequireDefault(_NavLink2);
 
-var _Prompt2 = __webpack_require__(54);
+var _Prompt2 = __webpack_require__(53);
 
 var _Prompt3 = _interopRequireDefault(_Prompt2);
 
-var _Redirect2 = __webpack_require__(56);
+var _Redirect2 = __webpack_require__(55);
 
 var _Redirect3 = _interopRequireDefault(_Redirect2);
 
@@ -6604,19 +6602,19 @@ var _Router2 = __webpack_require__(16);
 
 var _Router3 = _interopRequireDefault(_Router2);
 
-var _StaticRouter2 = __webpack_require__(62);
+var _StaticRouter2 = __webpack_require__(61);
 
 var _StaticRouter3 = _interopRequireDefault(_StaticRouter2);
 
-var _Switch2 = __webpack_require__(64);
+var _Switch2 = __webpack_require__(63);
 
 var _Switch3 = _interopRequireDefault(_Switch2);
 
-var _matchPath2 = __webpack_require__(66);
+var _matchPath2 = __webpack_require__(65);
 
 var _matchPath3 = _interopRequireDefault(_matchPath2);
 
-var _withRouter2 = __webpack_require__(67);
+var _withRouter2 = __webpack_require__(66);
 
 var _withRouter3 = _interopRequireDefault(_withRouter2);
 
@@ -6637,7 +6635,7 @@ exports.matchPath = _matchPath3.default;
 exports.withRouter = _withRouter3.default;
 
 /***/ }),
-/* 42 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6661,7 +6659,7 @@ var _propTypes = __webpack_require__(2);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _createBrowserHistory = __webpack_require__(45);
+var _createBrowserHistory = __webpack_require__(44);
 
 var _createBrowserHistory2 = _interopRequireDefault(_createBrowserHistory);
 
@@ -6730,7 +6728,7 @@ BrowserRouter.propTypes = {
 exports.default = BrowserRouter;
 
 /***/ }),
-/* 43 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7254,7 +7252,7 @@ module.exports = function (isValidElement, throwOnDirectAccess) {
 };
 
 /***/ }),
-/* 44 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7313,7 +7311,7 @@ module.exports = function () {
 };
 
 /***/ }),
-/* 45 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7639,7 +7637,7 @@ var createBrowserHistory = function createBrowserHistory() {
 exports.default = createBrowserHistory;
 
 /***/ }),
-/* 46 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7663,7 +7661,7 @@ var _propTypes = __webpack_require__(2);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _createHashHistory = __webpack_require__(47);
+var _createHashHistory = __webpack_require__(46);
 
 var _createHashHistory2 = _interopRequireDefault(_createHashHistory);
 
@@ -7731,7 +7729,7 @@ HashRouter.propTypes = {
 exports.default = HashRouter;
 
 /***/ }),
-/* 47 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8070,7 +8068,7 @@ var createHashHistory = function createHashHistory() {
 exports.default = createHashHistory;
 
 /***/ }),
-/* 48 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8080,7 +8078,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _MemoryRouter = __webpack_require__(49);
+var _MemoryRouter = __webpack_require__(48);
 
 var _MemoryRouter2 = _interopRequireDefault(_MemoryRouter);
 
@@ -8089,7 +8087,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _MemoryRouter2.default; // Written in this round about way for babel-transform-imports
 
 /***/ }),
-/* 49 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8113,7 +8111,7 @@ var _propTypes = __webpack_require__(2);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _createMemoryHistory = __webpack_require__(50);
+var _createMemoryHistory = __webpack_require__(49);
 
 var _createMemoryHistory2 = _interopRequireDefault(_createMemoryHistory);
 
@@ -8182,7 +8180,7 @@ MemoryRouter.propTypes = {
 exports.default = MemoryRouter;
 
 /***/ }),
-/* 50 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8373,7 +8371,7 @@ var createMemoryHistory = function createMemoryHistory() {
 exports.default = createMemoryHistory;
 
 /***/ }),
-/* 51 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8485,7 +8483,7 @@ NavLink.defaultProps = {
 exports.default = NavLink;
 
 /***/ }),
-/* 52 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8493,7 +8491,7 @@ exports.default = NavLink;
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-var isarray = __webpack_require__(53);
+var isarray = __webpack_require__(52);
 
 /**
  * Expose `pathToRegexp`.
@@ -8920,7 +8918,7 @@ function pathToRegexp(path, keys, options) {
 }
 
 /***/ }),
-/* 53 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8931,7 +8929,7 @@ module.exports = Array.isArray || function (arr) {
 };
 
 /***/ }),
-/* 54 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8941,7 +8939,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Prompt = __webpack_require__(55);
+var _Prompt = __webpack_require__(54);
 
 var _Prompt2 = _interopRequireDefault(_Prompt);
 
@@ -8950,7 +8948,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _Prompt2.default; // Written in this round about way for babel-transform-imports
 
 /***/ }),
-/* 55 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9064,7 +9062,7 @@ Prompt.contextTypes = {
 exports.default = Prompt;
 
 /***/ }),
-/* 56 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9074,7 +9072,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Redirect = __webpack_require__(57);
+var _Redirect = __webpack_require__(56);
 
 var _Redirect2 = _interopRequireDefault(_Redirect);
 
@@ -9083,7 +9081,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _Redirect2.default; // Written in this round about way for babel-transform-imports
 
 /***/ }),
-/* 57 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9111,7 +9109,7 @@ var _invariant = __webpack_require__(3);
 
 var _invariant2 = _interopRequireDefault(_invariant);
 
-var _history = __webpack_require__(58);
+var _history = __webpack_require__(57);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -9214,7 +9212,7 @@ Redirect.contextTypes = {
 exports.default = Redirect;
 
 /***/ }),
-/* 58 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9255,15 +9253,15 @@ Object.defineProperty(exports, 'createPath', {
   }
 });
 
-var _createBrowserHistory2 = __webpack_require__(59);
+var _createBrowserHistory2 = __webpack_require__(58);
 
 var _createBrowserHistory3 = _interopRequireDefault(_createBrowserHistory2);
 
-var _createHashHistory2 = __webpack_require__(60);
+var _createHashHistory2 = __webpack_require__(59);
 
 var _createHashHistory3 = _interopRequireDefault(_createHashHistory2);
 
-var _createMemoryHistory2 = __webpack_require__(61);
+var _createMemoryHistory2 = __webpack_require__(60);
 
 var _createMemoryHistory3 = _interopRequireDefault(_createMemoryHistory2);
 
@@ -9274,7 +9272,7 @@ exports.createHashHistory = _createHashHistory3.default;
 exports.createMemoryHistory = _createMemoryHistory3.default;
 
 /***/ }),
-/* 59 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9600,7 +9598,7 @@ var createBrowserHistory = function createBrowserHistory() {
 exports.default = createBrowserHistory;
 
 /***/ }),
-/* 60 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9939,7 +9937,7 @@ var createHashHistory = function createHashHistory() {
 exports.default = createHashHistory;
 
 /***/ }),
-/* 61 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10130,7 +10128,7 @@ var createMemoryHistory = function createMemoryHistory() {
 exports.default = createMemoryHistory;
 
 /***/ }),
-/* 62 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10140,7 +10138,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _StaticRouter = __webpack_require__(63);
+var _StaticRouter = __webpack_require__(62);
 
 var _StaticRouter2 = _interopRequireDefault(_StaticRouter);
 
@@ -10149,7 +10147,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _StaticRouter2.default; // Written in this round about way for babel-transform-imports
 
 /***/ }),
-/* 63 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10368,7 +10366,7 @@ StaticRouter.childContextTypes = {
 exports.default = StaticRouter;
 
 /***/ }),
-/* 64 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10378,7 +10376,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Switch = __webpack_require__(65);
+var _Switch = __webpack_require__(64);
 
 var _Switch2 = _interopRequireDefault(_Switch);
 
@@ -10387,7 +10385,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _Switch2.default; // Written in this round about way for babel-transform-imports
 
 /***/ }),
-/* 65 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10507,7 +10505,7 @@ Switch.propTypes = {
 exports.default = Switch;
 
 /***/ }),
-/* 66 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10526,7 +10524,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _matchPath2.default; // Written in this round about way for babel-transform-imports
 
 /***/ }),
-/* 67 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10536,7 +10534,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _withRouter = __webpack_require__(68);
+var _withRouter = __webpack_require__(67);
 
 var _withRouter2 = _interopRequireDefault(_withRouter);
 
@@ -10545,7 +10543,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _withRouter2.default; // Written in this round about way for babel-transform-imports
 
 /***/ }),
-/* 68 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10563,7 +10561,7 @@ var _propTypes = __webpack_require__(2);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _hoistNonReactStatics = __webpack_require__(69);
+var _hoistNonReactStatics = __webpack_require__(68);
 
 var _hoistNonReactStatics2 = _interopRequireDefault(_hoistNonReactStatics);
 
@@ -10614,7 +10612,7 @@ var withRouter = function withRouter(Component) {
 exports.default = withRouter;
 
 /***/ }),
-/* 69 */
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10685,6 +10683,12 @@ module.exports = function hoistNonReactStatics(targetComponent, sourceComponent,
 
     return targetComponent;
 };
+
+/***/ }),
+/* 69 */
+/***/ (function(module, exports) {
+
+module.exports = require("fs");
 
 /***/ })
 /******/ ]);
