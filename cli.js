@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 const chalk = require('chalk');
 const clear = require('clear'); // clears the terminal screen
 const inquirer = require('inquirer');
@@ -48,6 +49,8 @@ const getUserFiles = () => {
     fs.writeFile('SSRserver.js', sampleServer, (err) => {
       if (err) throw err;
     });
+    console.log('bye');
+    shell.exec('npm run start-SSR');
   });
 };
 
