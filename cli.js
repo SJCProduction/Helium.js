@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 const chalk = require('chalk');
 const clear = require('clear'); // clears the terminal screen
 const inquirer = require('inquirer');
@@ -24,7 +25,7 @@ const getUserFiles = () => {
     {
       name: 'html',
       type: 'input',
-      message: 'Enter the path of the index.html:',
+      message: 'Enter the path of your main html file:',
       validate(value) {
         if (files.indexExists(value)) return true;
         return defaultResponse;
@@ -33,7 +34,7 @@ const getUserFiles = () => {
     {
       name: 'component',
       type: 'input',
-      message: 'Enter the root component to mount:',
+      message: 'Enter the path of your root component file:',
       validate(value) {
         if (files.componentExists(value)) return true;
         return defaultResponse;
