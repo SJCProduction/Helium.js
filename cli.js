@@ -1,11 +1,10 @@
 #!/usr/bin/env node
-
 'use strict';
-
 const chalk = require('chalk');
 const clear = require('clear'); // clears the terminal screen
 const inquirer = require('inquirer');
 const figlet = require('figlet'); // creates ASCII art from text
+const shell = require('shelljs');
 const fs = require('fs');
 const files = require('./lib/files');
 const sampleServer = require('./lib/server-script')
@@ -57,16 +56,12 @@ const getUserFiles = (callback) => {
     },
   ];
   inquirer.prompt(questions).then((userInput) => userInput).then((user) => {
-    console.log(sampleServer)
-    console.log('writing userInput')
+    console.log('hello')
     fs.writeFileSync('userInput.json', JSON.stringify(user, null, 2), (err) => {
       if (err) throw err;
-      console.log('userInput.json file written');
     });
-    console.log('writing SSRserver')
     fs.writeFileSync('SSRserver.js', sampleServer, (err) => {
       if (err) throw err;
-      console.log('SSRserver.js file written');
     });
   });
 };
