@@ -25,7 +25,7 @@ const getUserFiles = () => {
     {
       name: 'html',
       type: 'input',
-      message: 'Enter the path of your main html file:',
+      message: 'Enter the path of your root html file:',
       validate(value) {
         if (files.indexExists(value)) return true;
         return defaultResponse;
@@ -42,7 +42,10 @@ const getUserFiles = () => {
     },
   ];
   inquirer.prompt(questions).then(userInput => userInput).then((user) => {
-    fs.writeFile('userInput.json', JSON.stringify(user, null, 2), (err) => {
+    const userResponses = Object.assign({}, user);
+    // check for ./ in front ogf component path
+    if ((userResponses.component).substring(0, 2) !== './') userResponses.component = `./${userResponses.component}`;
+    fs.writeFile('userInput.json', JSON.stringify(userResponses, null, 2), (err) => {
       if (err) throw err;
     });
     fs.writeFile('SSRserver.js', sampleServer, (err) => {
