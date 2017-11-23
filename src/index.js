@@ -37,10 +37,7 @@ const render = (req, res) => {
   }
 };
 
-const userData = () => JSON.parse(fs.readFileSync('./node_modules/sjc/userInput.json', 'utf8'));
-
 module.exports = {
   init,
   render,
-  userData,
 };
