@@ -2101,7 +2101,7 @@ var render = function render(req, res) {
 };
 
 var userData = function userData() {
-  return JSON.parse(fs.readFileSync('./userInput.json', 'utf8'));
+  return JSON.parse(fs.readFileSync('./node_modules/sjc/userInput.json', 'utf8'));
 };
 
 module.exports = {
