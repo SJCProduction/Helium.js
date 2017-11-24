@@ -19,10 +19,10 @@ const getUserFiles = () => {
     const SSRname = `${userRes.servername}.js`;
 
     //Update Package.json
-    fs.readFile('package.json', 'utf8', function(err, result) {
+    fs.readFile('package.json', 'utf8', (err, result) => {
       if(err) throw err;
       const newPjFile = Object.assign({}, JSON.parse(result));
-       newPjFile.scripts[userRes.script] = `babel-node ${SSRname}`;
+      newPjFile.scripts[userRes.script] = `babel-node ${SSRname}`;
 
       fs.writeFileSync('package.json', JSON.stringify(newPjFile, null, 2), (err) => {
         if (err) throw err;
