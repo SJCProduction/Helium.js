@@ -3,50 +3,37 @@ const chalk = require('chalk');
 const clear = require('clear'); // clears the terminal screen
 const inquirer = require('inquirer');
 const figlet = require('figlet'); // creates ASCII art from text
+const shell = require('shelljs');
 const fs = require('fs');
-const files = require('./lib/files');
+const { questions } = require('./lib/ques');
 const getServerScript = require('./lib/server-script');
 
 clear();
 console.log(chalk.cyanBright(figlet.textSync('CAKE', { horizontalLayout: 'full' })));
 
 const getUserFiles = () => {
-  const defaultResponse = 'oops! directory not found, please try again 🙀 🙀 🙀';
-  const questions = [
-    {
-      name: 'static',
-      type: 'input',
-      message: 'Enter the name of the static folder (e.g. dist, build, public):',
-      validate(value) {
-        if (files.directoryExists(value)) return true;
-        return defaultResponse;
-      },
-    },
-    {
-      name: 'html',
-      type: 'input',
-      message: 'Enter the path of the html file containing the root div:',
-      validate(value) {
-        if (files.indexExists(value)) return true;
-        return defaultResponse;
-      },
-    },
-    {
-      name: 'component',
-      type: 'input',
-      message: 'Enter the path of your root component file:',
-      validate(value) {
-        if (files.componentExists(value)) return true;
-        return defaultResponse;
-      },
-    },
-  ];
   inquirer.prompt(questions).then((user) => {
-    const userResponses = Object.assign({}, user);
-    if ((userResponses.component).substring(0, 2) !== './') userResponses.component = `./${userResponses.component}`;
-    fs.writeFile('SSRserver.js', getServerScript(userResponses), (err) => {
-      if (err) throw err;
+    const userRes = Object.assign({}, user);
+    if ((userRes.component).substring(0, 2) !== './') userRes.component = `./${userRes.component}`;
+
+    const SSRname = `${userRes.servername}.js`;
+
+    //Update Package.json
+    fs.readFile('package.json', 'utf8', (err, result) => {
+      if(err) throw err;
+      const newPjFile = Object.assign({}, JSON.parse(result));
+      newPjFile.scripts[userRes.script] = `babel-node ${SSRname}`;
+
+      fs.writeFileSync('package.json', JSON.stringify(newPjFile, null, 2), (err) => {
+        if (err) throw err;
+      })
+
+      fs.writeFileSync(`${SSRname}`, getServerScript(userRes), (err) => {
+        if (err) throw err;
+      });
+      shell.exec(`npm run ${userRes.script}`);
     });
+    console.log('Serving now running on localhost:3333');
   });
 };
 
