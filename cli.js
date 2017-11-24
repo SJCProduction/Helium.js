@@ -71,17 +71,15 @@ const getUserFiles = () => {
       const newPjFile = Object.assign({}, JSON.parse(result));
        newPjFile.scripts[userRes.script] = `babel-node ${SSRname}`
 
-      fs.writeFile('package.json', JSON.stringify(newPjFile, null, 2), (err) => {
+      fs.writeFileSync('package.json', JSON.stringify(newPjFile, null, 2), (err) => {
         if (err) throw err;
         console.log('package.json successfull rewritten')
       })
-    });
 
-    fs.writeFile(`${SSRname}`, getServerScript(userRes), (err) => {
-      if (err) throw err;
-      else { 
-        shell.exec(`npm run ${SSRname}`);
-      }
+      fs.writeFileSync(`${SSRname}`, getServerScript(userRes), (err) => {
+        if (err) throw err;
+      });
+      shell.exec(`npm run ${userRes.script}`)
     });
     console.log('Happy Thanksgiving');
   });
