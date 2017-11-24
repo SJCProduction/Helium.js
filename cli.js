@@ -44,7 +44,16 @@ const getUserFiles = () => {
     {
       name: 'script',
       type: 'input',
-      message: 'Enter a npm script name to start your SSR server (e.g. start-SSR)',
+      message: 'Enter a npm script name to start your SSR server (e.g. start-SSR):',
+      validate(value) {
+        if (files.nameValidation(value)) return true;
+        return 'Cannot contain symbols or "-" as first character';
+      },
+    },
+    {
+      name: 'servername',
+      type: 'input',
+      message: 'Enter new name for server side file:',
       validate(value) {
         if (files.nameValidation(value)) return true;
         return 'Cannot contain symbols or "-" as first character';
@@ -55,19 +64,22 @@ const getUserFiles = () => {
     fs.writeFile('userInput.json', JSON.stringify(user, null, 2), (err) => {
       if (err) throw err;
     });
-    fs.writeFile('SSRserver.js', sampleServer, (err) => {
+
+    fs.readFile('package.json', 'utf8', function(err, data) {
+      if(err) throw err;
+      // const pjFile = JSON.parse(data);
+      const newPjFile = Object.assign({}, JSON.parse(data));
+       newPjFile.scripts[user.script] = `babel-node ${user.servername}.js`
+
+      fs.writeFile('package.json', JSON.stringify(newPjFile, null, 2), (err) => {
+        if (err) throw err;
+        console.log('package.json successfull rewritten')
+      })
+    });
+
+    fs.writeFile(`${user.servername}.js`, sampleServer, (err) => {
       if (err) throw err;
       else { 
-        let addScript = fs.readFile('package.json', 'utf8', function(err, data) {
-          if(err) throw err;
-          // const pjFile = JSON.parse(data);
-          const newPjFile = Object.assign({}, JSON.parse(data));
-          console.log(newPjFile.scripts['start-newSSR'] = 'babel-node newSSR')
-          console.log(newPjFile)
-          
-          
-        })
-    // let pjFile = shell.cat('package.json').match   (/"start-client"/);
         // shell.exec('npm run start-SSR');
       }
     });
