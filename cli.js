@@ -6,7 +6,7 @@ const figlet = require('figlet'); // creates ASCII art from text
 const shell = require('shelljs');
 const fs = require('fs');
 const files = require('./lib/files');
-const sampleServer = require('./lib/server-script');
+const getServerScript = require('./lib/server-script');
 
 clear();
 console.log(chalk.cyanBright(figlet.textSync('CAKE', { horizontalLayout: 'full' })));
@@ -26,7 +26,7 @@ const getUserFiles = () => {
     {
       name: 'html',
       type: 'input',
-      message: 'Enter the path of the index.html:',
+      message: 'Enter the path of the html file containing the root div:',
       validate(value) {
         if (files.indexExists(value)) return true;
         return defaultResponse;
@@ -35,7 +35,7 @@ const getUserFiles = () => {
     {
       name: 'component',
       type: 'input',
-      message: 'Enter the root component to mount:',
+      message: 'Enter the path of your root component file:',
       validate(value) {
         if (files.componentExists(value)) return true;
         return defaultResponse;
@@ -61,15 +61,15 @@ const getUserFiles = () => {
     },
   ];
   inquirer.prompt(questions).then((user) => {
-    fs.writeFile('userInput.json', JSON.stringify(user, null, 2), (err) => {
-      if (err) throw err;
-    });
+    const userRes = Object.assign({}, user);
+    if ((userRes.component).substring(0, 2) !== './') userRes.component = `./${userRes.component}`;
+    const SSRname = `${userRes.servername}.js` 
 
-    fs.readFile('package.json', 'utf8', function(err, data) {
+    //Update Package.json
+    fs.readFile('package.json', 'utf8', function(err, result) {
       if(err) throw err;
-      // const pjFile = JSON.parse(data);
-      const newPjFile = Object.assign({}, JSON.parse(data));
-       newPjFile.scripts[user.script] = `babel-node ${user.servername}.js`
+      const newPjFile = Object.assign({}, JSON.parse(result));
+       newPjFile.scripts[userRes.script] = `babel-node ${SSRname}`
 
       fs.writeFile('package.json', JSON.stringify(newPjFile, null, 2), (err) => {
         if (err) throw err;
@@ -77,10 +77,10 @@ const getUserFiles = () => {
       })
     });
 
-    fs.writeFile(`${user.servername}.js`, sampleServer, (err) => {
+    fs.writeFile(`${SSRname}`, getServerScript(userRes), (err) => {
       if (err) throw err;
       else { 
-        // shell.exec('npm run start-SSR');
+        shell.exec(`npm run ${SSRname}`);
       }
     });
     console.log('Happy Thanksgiving');
