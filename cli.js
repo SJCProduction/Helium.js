@@ -15,25 +15,25 @@ const getUserFiles = () => {
   inquirer.prompt(questions).then((user) => {
     const userRes = Object.assign({}, user);
     if ((userRes.component).substring(0, 2) !== './') userRes.component = `./${userRes.component}`;
-    const SSRname = `${userRes.servername}.js` 
+
+    const SSRname = `${userRes.servername}.js`;
 
     //Update Package.json
     fs.readFile('package.json', 'utf8', function(err, result) {
       if(err) throw err;
       const newPjFile = Object.assign({}, JSON.parse(result));
-       newPjFile.scripts[userRes.script] = `babel-node ${SSRname}`
+       newPjFile.scripts[userRes.script] = `babel-node ${SSRname}`;
 
       fs.writeFileSync('package.json', JSON.stringify(newPjFile, null, 2), (err) => {
         if (err) throw err;
-        console.log('package.json successfull rewritten')
       })
 
       fs.writeFileSync(`${SSRname}`, getServerScript(userRes), (err) => {
         if (err) throw err;
       });
-      shell.exec(`npm run ${userRes.script}`)
+      shell.exec(`npm run ${userRes.script}`);
     });
-    console.log('Happy Thanksgiving');
+    console.log('Serving now running on localhost:3333');
   });
 };
 
