@@ -41,16 +41,37 @@ const getUserFiles = () => {
         return defaultResponse;
       },
     },
+    {
+      name: 'script',
+      type: 'input',
+      message: 'Enter a npm script name to start your SSR server (e.g. start-SSR)',
+      validate(value) {
+        if (files.nameValidation(value)) return true;
+        return 'Cannot contain symbols or "-" as first character';
+      },
+    },
   ];
-  inquirer.prompt(questions).then(userInput => userInput).then((user) => {
+  inquirer.prompt(questions).then((user) => {
     fs.writeFile('userInput.json', JSON.stringify(user, null, 2), (err) => {
       if (err) throw err;
     });
     fs.writeFile('SSRserver.js', sampleServer, (err) => {
       if (err) throw err;
+      else { 
+        let addScript = fs.readFile('package.json', 'utf8', function(err, data) {
+          if(err) throw err;
+          // const pjFile = JSON.parse(data);
+          const newPjFile = Object.assign({}, JSON.parse(data));
+          console.log(newPjFile.scripts['start-newSSR'] = 'babel-node newSSR')
+          console.log(newPjFile)
+          
+          
+        })
+    // let pjFile = shell.cat('package.json').match   (/"start-client"/);
+        // shell.exec('npm run start-SSR');
+      }
     });
-    console.log('bye');
-    shell.exec('npm run start-SSR');
+    console.log('Happy Thanksgiving');
   });
 };
 
