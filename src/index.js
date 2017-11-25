@@ -7,15 +7,15 @@ let inputs = {};
 function init(config) {
   inputs.html = config.html;
   inputs.component = config.component;
-  inputs.App = config.App;
+  // inputs.App = config.App;
 }
 
 function render(req, res, next) {
   // TODO: optimize App/Static for every call
-  // const App = require(inputs.component).default;
+  const App = require(inputs.component).default; //requires is undefined 
 
   // TODO: temporary fix to 'Critical dependency: the request of a dependency is an expression' warning, which causes 'Cannot find module "."' error in webpack bundle
-  const App = inputs.App;
+  // const App = inputs.App;
 
   const StaticRouter = require('react-router-dom').StaticRouter;
 
