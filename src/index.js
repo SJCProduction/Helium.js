@@ -1,27 +1,26 @@
-'use strict';
-const sjcReactDOMServer = require('react-dom/server');
+const React = require('react');
+const ReactDOMServer = require('react-dom/server');
+const { StaticRouter } = require('react-router-dom');
 const fs = require('fs');
 
-let inputs = {};
+const inputs = {};
 
-function init(config) {
+const init = (config) => {
   inputs.html = config.html;
   inputs.component = config.component;
-  // inputs.App = config.App;
-}
+  inputs.App = config.App;
+};
 
-function render(req, res, next) {
+const render = (req, res) => {
   // TODO: optimize App/Static for every call
-  const App = require(inputs.component).default; //requires is undefined 
+  // const App = require(inputs.component).default; //requires is undefined 
 
   // TODO: temporary fix to 'Critical dependency: the request of a dependency is an expression' warning, which causes 'Cannot find module "."' error in webpack bundle
-  // const App = inputs.App;
-
-  const StaticRouter = require('react-router-dom').StaticRouter;
+  const { App } = inputs
 
   const context = {};
-  let stringComponent = sjcReactDOMServer.renderToString(
-    <StaticRouter location={ req.url } context={ context }>
+  const stringComponent = ReactDOMServer.renderToString(
+    <StaticRouter location={req.url} context={context}>
       <App />
     </StaticRouter>
   );
@@ -29,7 +28,7 @@ function render(req, res, next) {
     res.status = 302;
     res.redirect(context.url);
   } else {
-    fs.readFile(inputs.html, 'utf8', function (err, data) {
+    fs.readFile(inputs.html, 'utf8', (err, data) => {
       if (err) throw err;
       const document = data.replace(/<body>(.*)<\/body>/, `<body><div id="root">${stringComponent}</div>$1</body>`);
       res.write(document);
@@ -38,11 +37,7 @@ function render(req, res, next) {
   }
 };
 
-function userData() {
-  const ready = fs.readFileSync('./userInput.json', 'utf8');
-  return JSON.parse(ready);
+module.exports = {
+  init,
+  render,
 };
-
-exports.init = init;
-exports.render = render;
-exports.userData = userData;
