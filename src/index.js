@@ -13,10 +13,10 @@ const init = (config) => {
 
 const render = (req, res) => {
   // TODO: optimize App/Static for every call
-  // const App = require(inputs.component).default;
+  // const App = require(inputs.component).default; //requires is undefined 
 
   // TODO: temporary fix to 'Critical dependency: the request of a dependency is an expression' warning, which causes 'Cannot find module "."' error in webpack bundle
-  const { App } = inputs;
+  const { App } = inputs
 
   const context = {};
   const stringComponent = ReactDOMServer.renderToString(
