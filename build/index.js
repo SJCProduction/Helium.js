@@ -2071,11 +2071,12 @@ var init = function init(config) {
   inputs.html = config.html;
   inputs.component = config.component;
   inputs.App = config.App;
+  inputs.id = config.id;
 };
 
 var render = function render(req, res) {
   // TODO: optimize App/Static for every call
-  // const App = require(inputs.component).default; //requires is undefined 
+  // const App = require(inputs.component).default;
 
   // TODO: temporary fix to 'Critical dependency: the request of a dependency is an expression' warning, which causes 'Cannot find module "."' error in webpack bundle
   var App = inputs.App;
@@ -2093,7 +2094,12 @@ var render = function render(req, res) {
   } else {
     fs.readFile(inputs.html, 'utf8', function (err, data) {
       if (err) throw err;
-      var document = data.replace(/<body>(.*)<\/body>/, '<body><div id="root">' + stringComponent + '</div>$1</body>');
+      console.log(data);
+      var regEx = new RegExp('<div id="' + inputs.id + '"></div>', 'gi');
+      var document = data.replace(regEx, '<div id="' + inputs.id + '">' + stringComponent + '</div>');
+      // TODO: Error handler for when root doesn't exist
+
+      console.log(document);
       res.write(document);
       res.end();
     });
