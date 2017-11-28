@@ -7,8 +7,8 @@ const inputs = {};
 
 const init = (config) => {
   inputs.html = config.html;
-  inputs.component = config.component;
   inputs.App = config.App;
+  inputs.id = config.id;
 };
 
 const render = (req, res) => {
@@ -30,7 +30,12 @@ const render = (req, res) => {
   } else {
     fs.readFile(inputs.html, 'utf8', (err, data) => {
       if (err) throw err;
-      const document = data.replace(/<body>([\s\S]*?)<\/body>/, `<body><div id="root">${stringComponent}</div>$1</body>`);
+      console.log(data);
+      const regEx = new RegExp(`<div id="${inputs.id}"><\/div>`, 'gi')
+      const document = data.replace(regEx, `<div id="${inputs.id}">${stringComponent}</div>`);
+      // TODO: Error handler for when root doesn't exist
+
+      console.log(document);
       res.write(document);
       res.end();
     });
