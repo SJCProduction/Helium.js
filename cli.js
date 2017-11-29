@@ -13,16 +13,16 @@ console.log(chalk.cyanBright(figlet.textSync('CAKE', { horizontalLayout: 'full' 
 
 const getUserFiles = () => {
   inquirer.prompt(questions).then((user) => {
-    // const userRes = Object.assign({}, user);
-    const userRes = { ...user };
+    const userRes = Object.assign({}, user);
+    // const userRes = { ...user };
     if ((userRes.component).substring(0, 2) !== './') userRes.component = `./${userRes.component}`;
 
     const SSRname = `${userRes.servername}.js`;
 
     fs.readFile('package.json', 'utf8', (error, result) => {
       if (error) throw error;
-      // const newPjFile = Object.assign({}, JSON.parse(result));
-      const newPjFile = { ...JSON.parse(result) };
+      const newPjFile = Object.assign({}, JSON.parse(result));
+      // const newPjFile = { ...JSON.parse(result) };
       newPjFile.scripts[userRes.script] = `babel-node ${SSRname}`;
       
 
@@ -33,8 +33,9 @@ const getUserFiles = () => {
       fs.writeFileSync(`${SSRname}`, getServerScript(userRes), (err) => {
         if (err) throw err;
       });
-      const ui = new inquirer.ui.BottomBar();
-      ui.log.write('Serving Side Server running on localhost: 3333');
+      // const ui = new inquirer.ui.BottomBar();
+      // ui.log.write('Serving Side Server running on localhost: 3333');
+      console.log("And your answers are:", userRes);
       shell.exec(`npm run ${userRes.script}`);
     });
   });
