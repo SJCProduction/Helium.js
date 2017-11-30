@@ -19,7 +19,7 @@
   "author": "SJC",
   "license": "ISC",
   "bin": {
-    "cakeit": "./cli.js"
+    "He": "./cli.js"
   },
   "bugs": {
     "url": "https://github.com/SJCProduction/SJC/issues"
@@ -38,8 +38,7 @@
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "redux": "^3.7.2",
-    "shelljs": "^0.7.8",
-    "util": "^0.10.3"
+    "shelljs": "^0.7.8"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
