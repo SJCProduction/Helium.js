@@ -3202,10 +3202,8 @@ var render = function render(req, res) {
   } else {
     fs.readFile(inputs.html, 'utf8', function (err, data) {
       if (err) throw err;
-      console.log(data);
       var regEx = new RegExp('<div id="' + inputs.id + '"></div>', 'gi');
       var document = data.replace(regEx, '<div id="' + inputs.id + '">' + stringComponent + '</div><script>window.__PRELOADED_STATE__ = ' + JSON.stringify(preloadedState).replace(/</g, '\\u003c') + '</script>');
-      console.log(document);
       res.write(document);
       res.end();
     });
