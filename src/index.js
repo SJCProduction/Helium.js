@@ -34,10 +34,8 @@ const render = (req, res) => {
   } else {
     fs.readFile(inputs.html, 'utf8', (err, data) => {
       if (err) throw err;
-      console.log(data)
-      const regEx = new RegExp(`<div id="${inputs.id}"><\/div>`, 'gi')
+      const regEx = new RegExp(`<div id="${inputs.id}"><\/div>`, 'gi');
       const document = data.replace(regEx, `<div id="${inputs.id}">${stringComponent}</div><script>window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(/</g, '\\u003c')}</script>`);
-      console.log(document);
       res.write(document);
       res.end();
     });
