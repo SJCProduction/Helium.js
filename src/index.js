@@ -13,10 +13,34 @@ const init = (config) => {
   inputs.html = config.html;
   inputs.App = config.App;
   inputs.id = config.id;
-  inputs.reducer = config.reducer;
+  if (config.reducer) {
+    inputs.reducer = config.reducer;
+  }
 };
 
 const render = (req, res) => {
+  const { App } = inputs;
+  const context = {};
+  const stringComponent = ReactDOMServer.renderToString(
+      <StaticRouter location={req.url} context={context}>
+        <App />
+      </StaticRouter>
+      );
+  if (context.url) {
+    res.status = 302;
+    res.redirect(context.url);
+  } else {
+    fs.readFile(inputs.html, 'utf8', (err, data) => {
+      if (err) throw err;
+      const regEx = new RegExp(`<div id="${inputs.id}"><\/div>`, 'gi');
+      const document = data.replace(regEx, `<div id="${inputs.id}">${stringComponent}</div>`);
+      res.write(document);
+      res.end();
+    });
+  }
+};
+
+const renderRedux = (req, res) => {
   const { App, reducer } = inputs;
 
   const context = {};
@@ -46,4 +70,5 @@ const render = (req, res) => {
 module.exports = {
   init,
   render,
+  renderRedux,
 };
