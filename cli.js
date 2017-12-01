@@ -13,32 +13,22 @@ console.log(chalk.cyanBright(figlet.textSync('Helium', { horizontalLayout: 'full
 
 const getUserFiles = () => {
   inquirer.prompt(questions).then((user) => {
-    const userRes = Object.assign({}, user);
-    // const userRes = { ...user };
+    const userRes = { ...user };
     if ((userRes.component).substring(0, 2) !== './') userRes.component = `./${userRes.component}`;
+
+    if (userRes.reducer && (userRes.reducer).substring(0, 2) !== './') userRes.reducer = `./${userRes.reducer}`;
 
     const SSRname = `${userRes.servername}.js`;
 
     fs.readFile('package.json', 'utf8', (error, result) => {
       if (error) throw error;
-      const newPjFile = Object.assign({}, JSON.parse(result));
-      // const newPjFile = { ...JSON.parse(result) };
-      newPjFile.scripts[userRes.script] = `babel-node ${SSRname}`;
+      const newPjFile = { ...JSON.parse(result) };
+      newPjFile.scripts[userRes.script] = `./node_modules/.bin/webpack && babel-node ${SSRname}`;
+      fs.writeFileSync('package.json', JSON.stringify(newPjFile, null, 2));
 
-      fs.writeFileSync('package.json', JSON.stringify(newPjFile, null, 2), (err) => {
-        if (err) throw err;
-      });
-      if (userRes.reducer) {
-        fs.writeFileSync(`${SSRname}`, getReduxServerScript(userRes), (err) => {
-          if (err) throw err;
-        });
-      } else {
-        fs.writeFileSync(`${SSRname}`, getServerScript(userRes), (err) => {
-          if (err) throw err;
-        });
-      }
-      // const ui = new inquirer.ui.BottomBar();
-      // ui.log.write('Serving Side Server running on localhost: 3333');
+      if (userRes.reducer) fs.writeFileSync(`${SSRname}`, getReduxServerScript(userRes));
+      else fs.writeFileSync(`${SSRname}`, getServerScript(userRes));
+      
       console.log("And your answers are:", userRes);
       shell.exec(`npm run ${userRes.script}`);
     });
