@@ -3176,10 +3176,35 @@ var init = function init(config) {
   inputs.html = config.html;
   inputs.App = config.App;
   inputs.id = config.id;
-  inputs.reducer = config.reducer;
+  if (config.reducer) {
+    inputs.reducer = config.reducer;
+  }
 };
 
 var render = function render(req, res) {
+  var App = inputs.App;
+
+  var context = {};
+  var stringComponent = ReactDOMServer.renderToString(React.createElement(
+    StaticRouter,
+    { location: req.url, context: context },
+    React.createElement(App, null)
+  ));
+  if (context.url) {
+    res.status = 302;
+    res.redirect(context.url);
+  } else {
+    fs.readFile(inputs.html, 'utf8', function (err, data) {
+      if (err) throw err;
+      var regEx = new RegExp('<div id="' + inputs.id + '"></div>', 'gi');
+      var document = data.replace(regEx, '<div id="' + inputs.id + '">' + stringComponent + '</div>');
+      res.write(document);
+      res.end();
+    });
+  }
+};
+
+var renderRedux = function renderRedux(req, res) {
   var App = inputs.App,
       reducer = inputs.reducer;
 
@@ -3212,7 +3237,8 @@ var render = function render(req, res) {
 
 module.exports = {
   init: init,
-  render: render
+  render: render,
+  renderRedux: renderRedux
 };
 
 /***/ }),

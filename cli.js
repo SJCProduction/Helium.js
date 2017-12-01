@@ -33,10 +33,11 @@ const getUserFiles = () => {
         fs.writeFileSync(`${SSRname}`, getReduxServerScript(userRes), (err) => {
           if (err) throw err;
         });
+      } else {
+        fs.writeFileSync(`${SSRname}`, getServerScript(userRes), (err) => {
+          if (err) throw err;
+        });
       }
-      fs.writeFileSync(`${SSRname}`, getServerScript(userRes), (err) => {
-        if (err) throw err;
-      });
       // const ui = new inquirer.ui.BottomBar();
       // ui.log.write('Serving Side Server running on localhost: 3333');
       console.log("And your answers are:", userRes);
