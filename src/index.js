@@ -1,25 +1,21 @@
-'use strict';
 const React = require('react');
 const ReactDOMServer = require('react-dom/server');
 const { StaticRouter } = require('react-router-dom');
 const { createStore } = require('redux');
 const { Provider } = require('react-redux');
-
 const fs = require('fs');
 
-const inputs = {};
-
-const init = (config) => {
-  inputs.html = config.html;
-  inputs.App = config.App;
-  inputs.id = config.id;
-  if (config.reducer) {
-    inputs.reducer = config.reducer;
-  }
+const config = {};
+const init = (inputs) => {
+  config.html = inputs.html;
+  config.App = inputs.App;
+  config.reducer = inputs.reducer;
+  config.id = inputs.id;
 };
 
-const render = (req, res) => {
-  const { App } = inputs;
+
+const serve = (req, res) => {
+  const { App } = config;
   const context = {};
   const stringComponent = ReactDOMServer.renderToString(
       <StaticRouter location={req.url} context={context}>
@@ -30,24 +26,25 @@ const render = (req, res) => {
     res.status = 302;
     res.redirect(context.url);
   } else {
-    fs.readFile(inputs.html, 'utf8', (err, data) => {
+    fs.readFile(config.html, 'utf8', (err, data) => {
       if (err) throw err;
-      const regEx = new RegExp(`<div id="${inputs.id}"><\/div>`, 'gi');
-      const document = data.replace(regEx, `<div id="${inputs.id}">${stringComponent}</div>`);
+      const regEx = new RegExp(`<div id="${config.id}"><\/div>`, 'gi');
+      const document = data.replace(regEx, `<div id="${config.id}">${stringComponent}</div>`);
       res.write(document);
       res.end();
     });
   }
 };
 
-const renderRedux = (req, res) => {
-  const { App, reducer } = inputs;
+const serveRedux = (req, res) => {
+  const { App, reducer } = config;
 
   const context = {};
-  const store = createStore(reducer);
-  const preloadedState = store.getState();
+  const serveStore = createStore(reducer);
+  const preloadedState = serveStore.getState();
+
   const stringComponent = ReactDOMServer.renderToString(
-    <Provider store={store}>
+    <Provider store={serveStore}>
       <StaticRouter location={req.url} context={context}>
         <App />
       </StaticRouter>
@@ -57,10 +54,10 @@ const renderRedux = (req, res) => {
     res.status = 302;
     res.redirect(context.url);
   } else {
-    fs.readFile(inputs.html, 'utf8', (err, data) => {
+    fs.readFile(config.html, 'utf8', (err, data) => {
       if (err) throw err;
-      const regEx = new RegExp(`<div id="${inputs.id}"><\/div>`, 'gi');
-      const document = data.replace(regEx, `<div id="${inputs.id}">${stringComponent}</div><script>window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(/</g, '\\u003c')}</script>`);
+      const regEx = new RegExp(`<div id="${config.id}"></div>`, 'gi');
+      const document = data.replace(regEx, `<div id="${config.id}">${stringComponent}</div><script>window.__HELIUM_CONFIG__ = ${JSON.stringify(preloadedState).replace(/</g, '\\u003c')}</script>`);
       res.write(document);
       res.end();
     });
@@ -69,6 +66,6 @@ const renderRedux = (req, res) => {
 
 module.exports = {
   init,
-  render,
-  renderRedux,
+  serve,
+  serveRedux,
 };
