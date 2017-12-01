@@ -13,7 +13,30 @@ const init = (inputs) => {
   config.id = inputs.id;
 };
 
+
 const serve = (req, res) => {
+  const { App } = config;
+  const context = {};
+  const stringComponent = ReactDOMServer.renderToString(
+      <StaticRouter location={req.url} context={context}>
+        <App />
+      </StaticRouter>
+      );
+  if (context.url) {
+    res.status = 302;
+    res.redirect(context.url);
+  } else {
+    fs.readFile(config.html, 'utf8', (err, data) => {
+      if (err) throw err;
+      const regEx = new RegExp(`<div id="${config.id}"><\/div>`, 'gi');
+      const document = data.replace(regEx, `<div id="${config.id}">${stringComponent}</div>`);
+      res.write(document);
+      res.end();
+    });
+  }
+};
+
+const serveRedux = (req, res) => {
   const { App, reducer } = config;
 
   const context = {};
@@ -44,4 +67,5 @@ const serve = (req, res) => {
 module.exports = {
   init,
   serve,
+  serveRedux,
 };

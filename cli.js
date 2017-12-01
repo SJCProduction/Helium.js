@@ -6,10 +6,10 @@ const figlet = require('figlet'); // creates ASCII art from text
 const shell = require('shelljs');
 const fs = require('fs');
 const { questions } = require('./lib/ques');
-const getServerScript = require('./lib/server-script');
+const { getServerScript, getReduxServerScript } = require('./lib/server-script');
 
 clear();
-console.log(chalk.cyanBright(figlet.textSync('CAKE', { horizontalLayout: 'full' })));
+console.log(chalk.cyanBright(figlet.textSync('Helium', { horizontalLayout: 'full' })));
 
 const getUserFiles = () => {
   inquirer.prompt(questions).then((user) => {
@@ -28,10 +28,15 @@ const getUserFiles = () => {
       fs.writeFileSync('package.json', JSON.stringify(newPjFile, null, 2), (err) => {
         if (err) throw err;
       });
-
-      fs.writeFileSync(`${SSRname}`, getServerScript(userRes), (err) => {
-        if (err) throw err;
-      });
+      if (userRes.reducer) {
+        fs.writeFileSync(`${SSRname}`, getReduxServerScript(userRes), (err) => {
+          if (err) throw err;
+        });
+      } else {
+        fs.writeFileSync(`${SSRname}`, getServerScript(userRes), (err) => {
+          if (err) throw err;
+        });
+      }
       // const ui = new inquirer.ui.BottomBar();
       // ui.log.write('Serving Side Server running on localhost: 3333');
       console.log("And your answers are:", userRes);
