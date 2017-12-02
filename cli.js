@@ -24,8 +24,6 @@ const getUserFiles = () => {
       const newPjFile = Object.assign({}, JSON.parse(result));
       // const newPjFile = { ...JSON.parse(result) };
       newPjFile.scripts[userRes.script] = `babel-node ${SSRname}`;
-      
-
       fs.writeFileSync('package.json', JSON.stringify(newPjFile, null, 2), (err) => {
         if (err) throw err;
       });
