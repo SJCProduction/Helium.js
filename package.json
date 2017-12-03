@@ -1,5 +1,5 @@
 {
-  "name": "sjc",
+  "name": "helium.js",
   "version": "0.0.1",
   "description": "React SRR Developer Application",
   "main": "build/index.js",
@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/SJCProduction/SJC#readme",
   "dependencies": {
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "chalk": "^2.3.0",
     "clear": "0.0.1",
     "express": "^4.16.2",
