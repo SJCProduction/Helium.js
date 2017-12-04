@@ -4,6 +4,7 @@ const clear = require('clear'); // clears the terminal screen
 const inquirer = require('inquirer');
 const figlet = require('figlet'); // creates ASCII art from text
 const shell = require('shelljs');
+const { spawn } = require('child_process');
 const fs = require('fs');
 const { questions } = require('./lib/ques');
 const { getServerScript, getReduxServerScript } = require('./lib/server-script');
@@ -31,8 +32,12 @@ const getUserFiles = async () => {
 
       if (userRes.reducer) fs.writeFileSync(`${SSRname}`, getReduxServerScript(userRes));
       else fs.writeFileSync(`${SSRname}`, getServerScript(userRes));
-      console.log('And your answers are:', userRes);
+      // console.log('And your answers are:', userRes);
       shell.exec(`npm run ${userRes.script}`);
+
+      // function puts(error, stdout, stderr) { console.log(stdout) };
+      // spawn(`npm run ${userRes.script}`, { stdio: 'inherit' });
+
     });
   } catch (e) {
     console.log('getUserFiles Error', e);
