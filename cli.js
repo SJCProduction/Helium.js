@@ -13,7 +13,8 @@ console.log(chalk.cyanBright(figlet.textSync('Helium', { horizontalLayout: 'full
 
 const getUserFiles = () => {
   inquirer.prompt(questions).then((user) => {
-    const userRes = { ...user };
+    const userRes = Object.assign({}, user);
+    // const userRes = { ...user };
     if ((userRes.component).substring(0, 2) !== './') userRes.component = `./${userRes.component}`;
 
     if (userRes.reducer && (userRes.reducer).substring(0, 2) !== './') userRes.reducer = `./${userRes.reducer}`;
@@ -22,7 +23,8 @@ const getUserFiles = () => {
 
     fs.readFile('package.json', 'utf8', (error, result) => {
       if (error) throw error;
-      const newPjFile = { ...JSON.parse(result) };
+      const newPjFile = Object.assign({}, JSON.parse(result));
+      // const newPjFile = { ...JSON.parse(result) };
       newPjFile.scripts[userRes.script] = `./node_modules/.bin/webpack && babel-node ${SSRname}`;
       fs.writeFileSync('package.json', JSON.stringify(newPjFile, null, 2));
 
