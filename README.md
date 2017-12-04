@@ -12,8 +12,6 @@ Helium.js is a performance enhancing kit equipped with all you need to make your
 * <b>Currently</b>: includes server side rendering with support for React Router v4 and Redux v3
 * <b>Coming Soon:</b> Optimization for webpack bundles
 
-## Why? 
-
 ## Prerequisites
 
 You will need to have react/react-dom and the babel-cli installed as dependencies.
