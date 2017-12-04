@@ -6,8 +6,6 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/SJCProduction/Helium.js/blob/master/LISENCE.md)
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/SJCProduction/Helium.js/issues)
 
-
-
 Helium.js is a performance enhancing kit equipped with all you need to make your React application isomorphic and optimized.
 * <b>Currently</b>: includes server side rendering with support for React Router v4 and Redux v3
 * <b>Coming Soon:</b> Optimization for webpack bundles
