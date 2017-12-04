@@ -24,7 +24,7 @@
     "isomorphic",
     "universal"
   ],
-  "author": "SJC Production",
+  "author": "Helium Team",
   "license": "MIT",
   "bin": {
     "He": "./cli.js"

@@ -2,11 +2,12 @@
 *Making your React application lighter!* 🎈
 
 [![npm](https://img.shields.io/npm/v/helium.js.svg)](https://www.npmjs.org/package/helium.js)
+[![Build Status](https://travis-ci.org/SJCProduction/Helium.js.svg?branch=master)](https://travis-ci.org/SJCProduction/Helium.js)
+[![NSP Status](https://nodesecurity.io/orgs/heliumjs/projects/36e966e1-6caf-4dd7-b424-bf5eb7c32085/badge)](https://github.com/SJCProduction/Helium.js)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/a6b83a7479ee494496ab2b3a30b181c9)](https://www.codacy.com/app/Helium/Helium.js?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=SJCProduction/Helium.js&amp;utm_campaign=Badge_Grade)
 [![GitHub stars](https://img.shields.io/github/stars/SJCProduction/Helium.js.svg?style=flat&label=Star)](https://github.com/SJCProduction/Helium.js)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/SJCProduction/Helium.js/blob/master/LISENCE.md)
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/SJCProduction/Helium.js/issues)
-
-
 
 Helium.js is a performance enhancing kit equipped with all you need to make your React application isomorphic and optimized.
 * <b>Currently</b>: includes server side rendering with support for React Router v4 and Redux v3
@@ -33,6 +34,7 @@ $ npm install helium.js --save
 ```javascript
 /* Replace render call with call to helium 
 in index file of React application */
+
 import helium from 'helium.js/react';
 
 helium(
@@ -163,7 +165,7 @@ If you would like to contribute, submit a [pull request](https://github.com/SJCP
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/SJCProduction/Helium.js/tags). 
 
 ## Authors
 
