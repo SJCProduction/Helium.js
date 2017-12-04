@@ -33,7 +33,7 @@ $ npm install helium.js --save
 ```javascript
 /* Replace render call with call to helium 
 in index file of React application */
-import helium, { getStore } from 'helium.js/react';
+import helium from 'helium.js/react';
 
 helium(
   <BrowserRouter>
