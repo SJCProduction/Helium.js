@@ -1,7 +1,7 @@
 {
   "name": "helium.js",
   "version": "0.0.1",
-  "description": "React SRR Developer Application",
+  "description": "Server Side Rendering React Developer Tool",
   "main": "build/index.js",
   "scripts": {
     "test": "./node_modules/.bin/webpack -w",
@@ -13,18 +13,26 @@
     "url": "git+https://github.com/SJCProduction/SJC.git"
   },
   "keywords": [
-    "SSR/CSR",
-    "react"
+    "ssr",
+    "react",
+    "server side rendering",
+    "webpack",
+    "code splitting",
+    "redux",
+    "react router",
+    "performance",
+    "isomorphic",
+    "universal"
   ],
-  "author": "Helium",
-  "license": "ISC",
+  "author": "Helium Team",
+  "license": "MIT",
   "bin": {
     "He": "./cli.js"
   },
   "bugs": {
-    "url": "https://github.com/SJCProduction/SJC/issues"
+    "url": "https://github.com/SJCProduction/Helium.js/issues"
   },
-  "homepage": "https://github.com/SJCProduction/SJC#readme",
+  "homepage": "https://github.com/SJCProduction/Helium.js#readme",
   "dependencies": {
     "chalk": "^2.3.0",
     "clear": "0.0.1",
