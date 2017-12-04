@@ -145,6 +145,20 @@ helium.init({
 app.get('*', helium.serveRedux);
 ```
 
+## Running Your Application
+
+If cli was not used, be sure to add a script to your package.json.
+```json
+"scripts": {
+    "start-helium-server": "./node_modules/.bin/webpack && babel-node HeliumServer.js",
+},
+```
+
+```sh
+# To run your application type the following into your terminal
+$ npm run start-helium-server
+```
+
 ## Contributing
 
 If you would like to contribute, submit a [pull request](https://github.com/SJCProduction/Helium.js/issues) and update the README.md with details of changes.
