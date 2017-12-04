@@ -11,8 +11,9 @@ const { getServerScript, getReduxServerScript } = require('./lib/server-script')
 clear();
 console.log(chalk.cyanBright(figlet.textSync('Helium', { horizontalLayout: 'full' })));
 
-const getUserFiles = () => {
-  inquirer.prompt(questions).then((user) => {
+const getUserFiles = async () => {
+  try {
+    const user = await inquirer.prompt(questions);
     const userRes = Object.assign({}, user);
     // const userRes = { ...user };
     if ((userRes.component).substring(0, 2) !== './') userRes.component = `./${userRes.component}`;
@@ -30,10 +31,11 @@ const getUserFiles = () => {
 
       if (userRes.reducer) fs.writeFileSync(`${SSRname}`, getReduxServerScript(userRes));
       else fs.writeFileSync(`${SSRname}`, getServerScript(userRes));
-      console.log("And your answers are:", userRes);
+      console.log('And your answers are:', userRes);
       shell.exec(`npm run ${userRes.script}`);
     });
-  });
+  } catch (e) {
+    console.log('getUserFiles Error', e);
+  }
 };
-
 getUserFiles();
