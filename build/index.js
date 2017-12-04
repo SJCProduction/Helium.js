@@ -3170,7 +3170,6 @@ var _require3 = __webpack_require__(95),
 
 var fs = __webpack_require__(105);
 
-<<<<<<< HEAD
 var config = {};
 var init = function init(inputs) {
   config.html = inputs.html;
@@ -3180,22 +3179,7 @@ var init = function init(inputs) {
 };
 
 var serve = function serve(req, res) {
-  var App = config.App,
-      reducer = config.reducer;
-=======
-var inputs = {};
-
-var init = function init(config) {
-  inputs.html = config.html;
-  inputs.App = config.App;
-  inputs.id = config.id;
-  if (config.reducer) {
-    inputs.reducer = config.reducer;
-  }
-};
-
-var render = function render(req, res) {
-  var App = inputs.App;
+  var App = config.App;
 
   var context = {};
   var stringComponent = ReactDOMServer.renderToString(React.createElement(
@@ -3207,20 +3191,19 @@ var render = function render(req, res) {
     res.status = 302;
     res.redirect(context.url);
   } else {
-    fs.readFile(inputs.html, 'utf8', function (err, data) {
+    fs.readFile(config.html, 'utf8', function (err, data) {
       if (err) throw err;
-      var regEx = new RegExp('<div id="' + inputs.id + '"></div>', 'gi');
-      var document = data.replace(regEx, '<div id="' + inputs.id + '">' + stringComponent + '</div>');
+      var regEx = new RegExp('<div id="' + config.id + '"></div>', 'gi');
+      var document = data.replace(regEx, '<div id="' + config.id + '">' + stringComponent + '</div>');
       res.write(document);
       res.end();
     });
   }
 };
 
-var renderRedux = function renderRedux(req, res) {
-  var App = inputs.App,
-      reducer = inputs.reducer;
->>>>>>> dev
+var serveRedux = function serveRedux(req, res) {
+  var App = config.App,
+      reducer = config.reducer;
 
 
   var context = {};
@@ -3252,12 +3235,8 @@ var renderRedux = function renderRedux(req, res) {
 
 module.exports = {
   init: init,
-<<<<<<< HEAD
-  serve: serve
-=======
-  render: render,
-  renderRedux: renderRedux
->>>>>>> dev
+  serve: serve,
+  serveRedux: serveRedux
 };
 
 /***/ }),
