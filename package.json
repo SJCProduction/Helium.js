@@ -24,7 +24,7 @@
     "isomorphic",
     "universal"
   ],
-  "author": "SJC Production",
+  "author": "Helium Team",
   "license": "MIT",
   "bin": {
     "He": "./cli.js"
@@ -51,8 +51,10 @@
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-loader": "^7.1.2",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-3": "^6.24.1",
     "eslint": "^4.11.0",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-import": "^2.8.0",

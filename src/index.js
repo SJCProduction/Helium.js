@@ -18,9 +18,9 @@ const serve = (req, res) => {
   const { App } = config;
   const context = {};
   const stringComponent = ReactDOMServer.renderToString(
-      <StaticRouter location={req.url} context={context}>
-        <App />
-      </StaticRouter>
+    <StaticRouter location={req.url} context={context}>
+      <App />
+    </StaticRouter>
       );
   if (context.url) {
     res.status = 302;
@@ -28,7 +28,7 @@ const serve = (req, res) => {
   } else {
     fs.readFile(config.html, 'utf8', (err, data) => {
       if (err) throw err;
-      const regEx = new RegExp(`<div id="${config.id}"><\/div>`, 'gi');
+      const regEx = new RegExp(`<div id="${config.id}"></div>`, 'gi');
       const document = data.replace(regEx, `<div id="${config.id}">${stringComponent}</div>`);
       res.write(document);
       res.end();
@@ -48,7 +48,7 @@ const serveRedux = (req, res) => {
       <StaticRouter location={req.url} context={context}>
         <App />
       </StaticRouter>
-    </Provider>
+    </Provider>,
   );
   if (context.url) {
     res.status = 302;
