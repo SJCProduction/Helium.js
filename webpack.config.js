@@ -9,6 +9,7 @@ module.exports = {
     filename: 'index.js',
     publicPath: '/assets/',
     libraryTarget: 'commonjs2',
+    pathInfo: true,
   },
   module: {
     rules: [
