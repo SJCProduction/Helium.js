@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
 
 module.exports = {
   entry: path.join(__dirname, 'src', 'index.js'),
@@ -20,7 +21,7 @@ module.exports = {
     ],
   },
   externals: { React: 'commonjs react' },
-  devtool: 'source-map',
+  devtool: 'cheap-module-source-map',
   plugins: [
     new webpack.ProvidePlugin({
       React: 'react',
@@ -31,6 +32,13 @@ module.exports = {
     new UglifyJsPlugin({
       test: /\.jsx?$/,
       sourceMap: true,
+    }),
+    new CompressionPlugin({
+      asset: '[path].gz[query]',
+      algorithm: 'gzip',
+      test: /\.js$|\.css$|\.html$/,
+      threshold: 10240,
+      minRatio: 0,
     }),
   ],
 };
