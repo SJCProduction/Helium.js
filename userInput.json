@@ -1,5 +1,0 @@
-{
-  "static": "./src/client/dist",
-  "html": "./src/client/static/index.html",
-  "component": "./src/client/src/App.jsx"
-}

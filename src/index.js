@@ -1,48 +1,71 @@
-'use strict';
-const sjcReactDOMServer = require('react-dom/server');
+const React = require('react');
+const ReactDOMServer = require('react-dom/server');
+const { StaticRouter } = require('react-router-dom');
+const { createStore } = require('redux');
+const { Provider } = require('react-redux');
 const fs = require('fs');
 
-let inputs = {};
+const config = {};
+const init = (inputs) => {
+  config.html = inputs.html;
+  config.App = inputs.App;
+  config.reducer = inputs.reducer;
+  config.id = inputs.id;
+};
 
-function init(config) {
-  inputs.html = config.html;
-  inputs.component = config.component;
-  inputs.App = config.App;
-}
 
-function render(req, res, next) {
-  // TODO: optimize App/Static for every call
-  // const App = require(inputs.component).default;
-
-  // TODO: temporary fix to 'Critical dependency: the request of a dependency is an expression' warning, which causes 'Cannot find module "."' error in webpack bundle
-  const App = inputs.App;
-
-  const StaticRouter = require('react-router-dom').StaticRouter;
-
+const serve = (req, res) => {
+  const { App } = config;
   const context = {};
-  let stringComponent = sjcReactDOMServer.renderToString(
-    <StaticRouter location={ req.url } context={ context }>
+  const stringComponent = ReactDOMServer.renderToString(
+    <StaticRouter location={req.url} context={context}>
       <App />
     </StaticRouter>
-  );
+      );
   if (context.url) {
     res.status = 302;
     res.redirect(context.url);
   } else {
-    fs.readFile(inputs.html, 'utf8', function (err, data) {
+    fs.readFile(config.html, 'utf8', (err, data) => {
       if (err) throw err;
-      const document = data.replace(/<body>(.*)<\/body>/, `<body><div id="root">${stringComponent}</div>$1</body>`);
+      const regEx = new RegExp(`<div id="${config.id}"></div>`, 'gi');
+      const document = data.replace(regEx, `<div id="${config.id}">${stringComponent}</div>`);
       res.write(document);
       res.end();
     });
   }
 };
 
-function userData() {
-  const ready = fs.readFileSync('./userInput.json', 'utf8');
-  return JSON.parse(ready);
+const serveRedux = (req, res) => {
+  const { App, reducer } = config;
+
+  const context = {};
+  const serveStore = createStore(reducer);
+  const preloadedState = serveStore.getState();
+
+  const stringComponent = ReactDOMServer.renderToString(
+    <Provider store={serveStore}>
+      <StaticRouter location={req.url} context={context}>
+        <App />
+      </StaticRouter>
+    </Provider>,
+  );
+  if (context.url) {
+    res.status = 302;
+    res.redirect(context.url);
+  } else {
+    fs.readFile(config.html, 'utf8', (err, data) => {
+      if (err) throw err;
+      const regEx = new RegExp(`<div id="${config.id}"></div>`, 'gi');
+      const document = data.replace(regEx, `<div id="${config.id}">${stringComponent}</div><script>window.__HELIUM_CONFIG__ = ${JSON.stringify(preloadedState).replace(/</g, '\\u003c')}</script>`);
+      res.write(document);
+      res.end();
+    });
+  }
 };
 
-exports.init = init;
-exports.render = render;
-exports.userData = userData;
+module.exports = {
+  init,
+  serve,
+  serveRedux,
+};

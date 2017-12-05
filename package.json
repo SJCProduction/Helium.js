@@ -1,58 +1,65 @@
 {
-  "name": "sjc",
-  "version": "0.0.1",
-  "description": "React SRR Developer Application",
+  "name": "helium.js",
+  "version": "1.0.0",
+  "description": "Server Side Rendering React Developer Tool",
   "main": "build/index.js",
   "scripts": {
     "test": "./node_modules/.bin/webpack -w",
     "webpack": "./node_modules/.bin/webpack",
-    "prepublish": "npm run webpack"
+    "prepare": "npm run webpack"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/SJCProduction/SJC.git"
   },
   "keywords": [
-    "SSR/CSR",
+    "ssr",
     "react",
     "server side rendering",
-    "isomorphic"
+    "webpack",
+    "code splitting",
+    "redux",
+    "react router",
+    "performance",
+    "isomorphic",
+    "universal"
   ],
-  "author": "SJC",
-  "license": "ISC",
+  "author": "Helium Team",
+  "license": "MIT",
   "bin": {
-    "cakeit": "./cli.js"
+    "He": "./cli.js"
   },
   "bugs": {
-    "url": "https://github.com/SJCProduction/SJC/issues"
+    "url": "https://github.com/SJCProduction/Helium.js/issues"
   },
-  "homepage": "https://github.com/SJCProduction/SJC#readme",
+  "homepage": "https://github.com/SJCProduction/Helium.js#readme",
   "dependencies": {
+    "chalk": "^2.3.0",
+    "clear": "0.0.1",
     "express": "^4.16.2",
+    "figlet": "^1.2.0",
+    "helium.js": "0.0.1",
+    "inquirer": "^4.0.0",
+    "react": "^16.1.1",
     "react-dom": "^16.1.1",
+    "react-redux": "^5.0.6",
+    "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
-    "util": "^0.10.3"
+    "redux": "^3.7.2",
+    "shelljs": "^0.7.8"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
-    "chalk": "^2.3.0",
-    "clear": "0.0.1",
-    "clui": "^0.3.6",
+    "babel-preset-stage-3": "^6.24.1",
     "eslint": "^4.11.0",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-jsx-a11y": "^6.0.2",
     "eslint-plugin-react": "^7.5.1",
-    "figlet": "^1.2.0",
-    "inquirer": "^4.0.0",
-    "lodash": "^4.17.4",
-    "minimist": "^1.2.0",
-    "preferences": "^1.0.1",
-    "touch": "^3.1.0",
     "webpack": "^3.8.1"
   }
 }
