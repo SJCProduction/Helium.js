@@ -16,10 +16,10 @@ Helium.js is a node package that helps make your React application isomorphic an
 
 ## Prerequisites
 
-You will need to have react/react-dom and the babel-cli installed as dependencies.
+You will need to have react/react-dom installed as dependencies.
 
 ```sh
-$ npm install react react-dom babel-cli --save
+$ npm install react react-dom --save
 ```
 
 ## Installation
