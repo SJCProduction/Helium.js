@@ -11,15 +11,15 @@
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/SJCProduction/Helium.js/issues)
 
 Helium.js is a node package that helps make your React application isomorphic and optimized.
-* <b>Currently</b>: includes server side rendering with support for React Router v4 and Redux v3
+* <b>Currently</b>: Includes server side rendering with support for React Router v4 and Redux v3
 * <b>Coming Soon:</b> Optimization for webpack bundles
 
 ## Prerequisites
 
-You will need to have react/react-dom and the babel-cli installed as dependencies.
+You will need to have react/react-dom installed as dependencies.
 
 ```sh
-$ npm install react react-dom babel-cli --save
+$ npm install react react-dom --save
 ```
 
 ## Installation
@@ -117,6 +117,8 @@ helium.init({
   App,
 });
 
+// input api routes here
+
 app.get('*', helium.serve);
 
 ```
@@ -142,6 +144,8 @@ helium.init({
   App,
   reducer,
 });
+
+// input api routes here
 
 app.get('*', helium.serveRedux);
 ```
