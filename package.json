@@ -36,6 +36,7 @@
   "dependencies": {
     "chalk": "^2.3.0",
     "clear": "0.0.1",
+    "compression-webpack-plugin": "^1.0.1",
     "express": "^4.16.2",
     "figlet": "^1.2.0",
     "inquirer": "^4.0.0",
