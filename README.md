@@ -25,7 +25,7 @@ $ npm install react react-dom --save
 ## Installation
 
 ```sh
-$ npm install helium.js --save
+$ npm install -g helium.js --save
 ```
 
 ## Usage
