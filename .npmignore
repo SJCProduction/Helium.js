@@ -1,0 +1,8 @@
+node_modules
+src
+webpack.config.js
+.travis.yml
+.babelrc
+.eslintrc
+.gitignore
+.vscode
