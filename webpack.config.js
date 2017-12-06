@@ -2,14 +2,16 @@ const path = require('path');
 const webpack = require('webpack');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
-const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+// const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 module.exports = {
-  entry: path.join(__dirname, 'src', 'index.js'),
+  entry: {
+    entry: path.join(__dirname, 'src', 'index.js'),
+  },
   target: 'node',
   output: {
     path: path.resolve(__dirname, 'build'),
-    filename: 'index.js',
+    filename: 'bundle.js',
     libraryTarget: 'commonjs2',
   },
   module: {
@@ -27,13 +29,15 @@ module.exports = {
     new webpack.ProvidePlugin({
       React: 'react',
     }),
-    new BundleAnalyzerPlugin(),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production'),
     }),
     new UglifyJsPlugin({
       test: /\.jsx?$/,
       sourceMap: true,
+      output: {
+        comments: false,
+      },
     }),
     new CompressionPlugin({
       asset: '[path].gz[query]',
