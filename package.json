@@ -2,7 +2,7 @@
   "name": "helium.js",
   "version": "1.0.2",
   "description": "Server Side Rendering React Developer Tool",
-  "main": "build/index.js",
+  "main": "build/bundle.js",
   "scripts": {
     "test": "./node_modules/.bin/webpack -w",
     "webpack": "./node_modules/.bin/webpack",
@@ -61,6 +61,7 @@
     "eslint-plugin-jsx-a11y": "^6.0.2",
     "eslint-plugin-react": "^7.5.1",
     "uglifyjs-webpack-plugin": "^1.1.2",
-    "webpack": "^3.10.0"
+    "webpack": "^3.10.0",
+    "webpack-bundle-analyzer": "^2.9.1"
   }
 }
