@@ -1,6 +1,5 @@
 const path = require('path');
 const webpack = require('webpack');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
 // const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
@@ -24,7 +23,7 @@ module.exports = {
     ],
   },
   externals: { React: 'commonjs react' },
-  devtool: 'cheap-module-source-map',
+  devtool: 'cheap-source-map',
   plugins: [
     new webpack.ProvidePlugin({
       React: 'react',
