@@ -29,15 +29,16 @@ module.exports = {
     new webpack.ProvidePlugin({
       React: 'react',
     }),
+    new webpack.optimize.ModuleConcatenationPlugin(),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production'),
     }),
-    new UglifyJsPlugin({
-      test: /\.jsx?$/,
-      sourceMap: true,
+    new webpack.optimize.UglifyJsPlugin({
       output: {
         comments: false,
       },
+      test: /\.jsx?$/,
+      sourceMap: true,
     }),
     new CompressionPlugin({
       asset: '[path].gz[query]',
