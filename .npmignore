@@ -6,3 +6,6 @@ webpack.config.js
 .eslintrc
 .gitignore
 .vscode
+/build/index.js
+/build/index.js.gz
+/build/index.js.map
