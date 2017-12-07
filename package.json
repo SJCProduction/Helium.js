@@ -1,6 +1,6 @@
 {
   "name": "helium.js",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Server Side Rendering React Developer Tool",
   "main": "build/bundle.js",
   "scripts": {
