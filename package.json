@@ -27,7 +27,7 @@
   "author": "Helium Team",
   "license": "MIT",
   "bin": {
-    "He": "./cli.js"
+    "He": "./cliPrimary.js"
   },
   "bugs": {
     "url": "https://github.com/SJCProduction/Helium.js/issues"
