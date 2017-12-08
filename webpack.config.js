@@ -23,7 +23,7 @@ module.exports = {
     ],
   },
   externals: { React: 'commonjs react' },
-  devtool: 'cheap-module-source-map',
+  devtool: 'cheap-source-map',
   plugins: [
     new webpack.ProvidePlugin({
       React: 'react',

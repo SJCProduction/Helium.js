@@ -27,7 +27,7 @@
   "author": "Helium Team",
   "license": "MIT",
   "bin": {
-    "He": "./cli.js"
+    "He": "./cliPrimary.js"
   },
   "bugs": {
     "url": "https://github.com/SJCProduction/Helium.js/issues"
@@ -60,6 +60,7 @@
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-jsx-a11y": "^6.0.2",
     "eslint-plugin-react": "^7.5.1",
+    "puppeteer": "^0.13.0",
     "uglifyjs-webpack-plugin": "^1.1.2",
     "webpack": "^3.10.0",
     "webpack-bundle-analyzer": "^2.9.1"
