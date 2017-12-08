@@ -6,7 +6,9 @@ const testPerf = async () => {
     const user = await inquirer.prompt(test);
     console.log(user);
   }
-  catch(error){
-    console.log(error)
+  catch(error) {
+    console.log(error);
   }
-}
+};
+
+testPerf();
