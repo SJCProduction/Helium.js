@@ -2,7 +2,7 @@
   "name": "helium.js",
   "version": "1.0.2",
   "description": "Server Side Rendering React Developer Tool",
-  "main": "build/bundle.js",
+  "main": "build",
   "scripts": {
     "test": "./node_modules/.bin/webpack -w",
     "webpack": "./node_modules/.bin/webpack",
@@ -40,12 +40,14 @@
     "express": "^4.16.2",
     "figlet": "^1.2.0",
     "inquirer": "^4.0.0",
+    "puppeteer": "^0.13.0",
     "react": "^16.1.1",
     "react-dom": "^16.1.1",
     "react-redux": "^5.0.6",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "redux": "^3.7.2",
+    "serialize-javascript": "^1.4.0",
     "shelljs": "^0.7.8"
   },
   "devDependencies": {
@@ -60,9 +62,9 @@
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-jsx-a11y": "^6.0.2",
     "eslint-plugin-react": "^7.5.1",
-    "puppeteer": "^0.13.0",
     "uglifyjs-webpack-plugin": "^1.1.2",
     "webpack": "^3.10.0",
-    "webpack-bundle-analyzer": "^2.9.1"
+    "webpack-bundle-analyzer": "^2.9.1",
+    "webpack-node-externals": "^1.6.0"
   }
 }
