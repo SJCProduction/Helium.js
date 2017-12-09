@@ -17,11 +17,8 @@ const getUserFiles = async () => {
     const userRes = Object.assign({}, user);
     // const userRes = { ...user };
     if ((userRes.component).substring(0, 2) !== './') userRes.component = `./${userRes.component}`;
-
     if (userRes.reducer && (userRes.reducer).substring(0, 2) !== './') userRes.reducer = `./${userRes.reducer}`;
-
     const SSRname = `${userRes.servername}.js`;
-
     fs.readFile('package.json', 'utf8', (error, result) => {
       if (error) throw error;
       const newPjFile = Object.assign({}, JSON.parse(result));
