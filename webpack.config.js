@@ -22,12 +22,9 @@ module.exports = {
     ],
   },
   externals: [{ React: 'commonjs react' }, nodeExternals()],
-  devtool: 'cheap-med-source-map',
+  devtool: 'cheap-eval-source-map',
   plugins: [
     new webpack.optimize.ModuleConcatenationPlugin(),
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('production'),
-    }),
     new UglifyJsPlugin({
       extractComments: true,
       test: /\.jsx?$/,
