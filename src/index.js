@@ -4,6 +4,7 @@ const { StaticRouter } = require('react-router-dom');
 const { createStore } = require('redux');
 const { Provider } = require('react-redux');
 const fs = require('fs');
+const serialize = require('serialize-javascript');
 
 const config = {};
 const init = (inputs) => {
@@ -21,7 +22,7 @@ const serve = (req, res) => {
     <StaticRouter location={req.url} context={context}>
       <App />
     </StaticRouter>
-      );
+  );
   if (context.url) {
     res.status = 302;
     res.redirect(context.url);
@@ -42,7 +43,6 @@ const serveRedux = (req, res) => {
   const context = {};
   const serveStore = createStore(reducer);
   const preloadedState = serveStore.getState();
-
   const stringComponent = ReactDOMServer.renderToString(
     <Provider store={serveStore}>
       <StaticRouter location={req.url} context={context}>
@@ -57,7 +57,7 @@ const serveRedux = (req, res) => {
     fs.readFile(config.html, 'utf8', (err, data) => {
       if (err) throw err;
       const regEx = new RegExp(`<div id="${config.id}"></div>`, 'gi');
-      const document = data.replace(regEx, `<div id="${config.id}">${stringComponent}</div><script>window.__HELIUM_CONFIG__ = ${JSON.stringify(preloadedState).replace(/</g, '\\u003c')}</script>`);
+      const document = data.replace(regEx, `<div id="${config.id}">${stringComponent}</div><script>window.__HELIUM_CONFIG__ = ${JSON.stringify(serialize(preloadedState)).replace(/</g, '\\u003c')}</script>`);
       res.write(document);
       res.end();
     });
