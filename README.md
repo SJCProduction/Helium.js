@@ -1,4 +1,4 @@
-![alt text](https://imgur.com/gPvDcb5)
+![alt text](https://i.imgur.com/gPvDcb5.png)
 # Helium.js
 *Making your React application lighter!* 🎈
 
