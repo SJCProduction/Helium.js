@@ -1,4 +1,4 @@
-# Helium.js 
+![alt text](https://imgur.com/gPvDcb5) 
 *Making your React application lighter!* 🎈
 
 [![npm](https://img.shields.io/npm/v/helium.js.svg)](https://www.npmjs.org/package/helium.js)
