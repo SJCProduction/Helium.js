@@ -1,16 +1,15 @@
 const path = require('path');
 const webpack = require('webpack');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
-// const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+const nodeExternals = require('webpack-node-externals');
 
 module.exports = {
-  entry: {
-    entry: path.join(__dirname, 'src', 'index.js'),
-  },
+  entry: path.join(__dirname, 'src', 'index.js'),
   target: 'node',
   output: {
     path: path.resolve(__dirname, 'build'),
-    filename: 'bundle.js',
+    filename: 'index.js',
     libraryTarget: 'commonjs2',
   },
   module: {
@@ -22,20 +21,15 @@ module.exports = {
       },
     ],
   },
-  externals: { React: 'commonjs react' },
-  devtool: 'cheap-source-map',
+  externals: [{ React: 'commonjs react' }, nodeExternals()],
+  devtool: 'cheap-med-source-map',
   plugins: [
-    new webpack.ProvidePlugin({
-      React: 'react',
-    }),
     new webpack.optimize.ModuleConcatenationPlugin(),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production'),
     }),
-    new webpack.optimize.UglifyJsPlugin({
-      output: {
-        comments: false,
-      },
+    new UglifyJsPlugin({
+      extractComments: true,
       test: /\.jsx?$/,
       sourceMap: true,
     }),
