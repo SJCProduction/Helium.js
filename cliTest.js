@@ -12,14 +12,12 @@ const testPerf = async () => {
     const user = await inquirer.prompt(test);
     if (user) {
       const ui = new inquirer.ui.BottomBar();
-      // let results = await testPromise()
+      
       const status = new Spinner('Retrieving Performance data...');
       status.start();
-      
-      const data = testPromise().then(results => {
-        status.stop();
-        ui.updateBottomBar(JSON.stringify(results.PerformanceGetMetrics, null, 2));
-      })
+      let results = await testPromise()
+      status.stop();
+      ui.updateBottomBar(JSON.stringify(results.PerformanceGetMetrics, null, 2));
     }
   } catch (error) {
     throw error;
