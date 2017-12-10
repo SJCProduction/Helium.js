@@ -1,21 +1,19 @@
 #! /usr/bin/env node
 const inquirer = require('inquirer');
 const { test } = require('./lib/ques');
-const shell = require('shelljs');
 const testPromise = require('./lib/testPerf');
-const CLI = require ('clui');
-const Spinner = CLI.Spinner
+const CLI = require('clui');
 
-//work on dynamic importing
+const { Spinner } = CLI;
+
 const testPerf = async () => {
   try {
     const user = await inquirer.prompt(test);
     if (user) {
       const ui = new inquirer.ui.BottomBar();
-      
       const status = new Spinner('Retrieving Performance data...');
       status.start();
-      let results = await testPromise()
+      const results = await testPromise();
       status.stop();
       ui.updateBottomBar(JSON.stringify(results.PerformanceGetMetrics, null, 2));
     }

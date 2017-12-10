@@ -68,5 +68,4 @@ module.exports = {
   init,
   serve,
   serveRedux,
-  config,
 };
