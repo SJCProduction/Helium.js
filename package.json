@@ -37,18 +37,19 @@
   "dependencies": {
     "chalk": "^2.3.0",
     "clear": "0.0.1",
+    "clui": "^0.3.6",
     "compression-webpack-plugin": "^1.0.1",
     "express": "^4.16.2",
     "figlet": "^1.2.0",
     "inquirer": "^4.0.0",
+    "puppeteer": "^0.13.0",
     "react": "^16.1.1",
     "react-dom": "^16.1.1",
     "react-redux": "^5.0.6",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "redux": "^3.7.2",
-    "shelljs": "^0.7.8",
-    "puppeteer": "^0.13.0"
+    "shelljs": "^0.7.8"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
