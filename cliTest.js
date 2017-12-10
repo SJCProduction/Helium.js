@@ -6,18 +6,20 @@ const testPromise = require('./lib/testPerf');
 const CLI = require ('clui');
 const Spinner = CLI.Spinner
 
+
+
 const testPerf = async () => {
   try {
     const user = await inquirer.prompt(test);
     if (user) {
+      const ui = new inquirer.ui.BottomBar();
       // let results = await testPromise()
       const status = new Spinner('Retrieving Performance data...');
       status.start();
       const data = testPromise().then(results => {
-        console.log(results.PerformanceGetMetrics)
         status.stop();
+        ui.updateBottomBar(JSON.stringify(results.PerformanceGetMetrics, null, 2));
       })
-      // console.log(results)
     }
 
   } catch (error) {
