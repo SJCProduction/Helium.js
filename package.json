@@ -27,7 +27,8 @@
   "author": "Helium Team",
   "license": "MIT",
   "bin": {
-    "He": "./cliPrimary.js"
+    "He": "./global/cliPrimary.js",
+    "lift": "./global/cliTest.js"
   },
   "bugs": {
     "url": "https://github.com/SJCProduction/Helium.js/issues"
@@ -36,6 +37,7 @@
   "dependencies": {
     "chalk": "^2.3.0",
     "clear": "0.0.1",
+    "clui": "^0.3.6",
     "compression-webpack-plugin": "^1.0.1",
     "express": "^4.16.2",
     "figlet": "^1.2.0",
