@@ -1,7 +1,7 @@
 #! /usr/bin/env node
 const inquirer = require('inquirer');
-const { test } = require('./lib/ques');
-const testPromise = require('./lib/testPerf');
+const { test } = require('../lib/ques');
+const testPromise = require('../lib/testPerf');
 const CLI = require('clui');
 
 const { Spinner } = CLI;
@@ -15,7 +15,7 @@ const testPerf = async () => {
       status.start();
       const results = await testPromise();
       status.stop();
-      ui.updateBottomBar(JSON.stringify(results.PerformanceGetMetrics, null, 2));
+      ui.updateBottomBar(JSON.stringify(results, null, 1));
     }
   } catch (error) {
     throw error;

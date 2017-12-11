@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 ![alt text](https://i.imgur.com/gPvDcb5.png)
-=======
-# Helium.js
->>>>>>> dev
 *Making your React application lighter!* 🎈
 
 [![npm](https://img.shields.io/npm/v/helium.js.svg)](https://www.npmjs.org/package/helium.js)
@@ -15,6 +11,9 @@
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/SJCProduction/Helium.js/issues)
 
 Helium.js is a node package that helps make your React application isomorphic and optimized.
+
+Leveraging server-side rendering can significantly improve first page load performance: render JavaScript templates on the server to deliver fast first render, and then use client-side templating once the page is loaded. However, performance benefits depends on the use case and server-side rendering is not a one size fits all design.
+
 * <b>Currently</b>: Includes server side rendering with support for React Router v4 and Redux v3
 * <b>Coming Soon:</b> Optimization for webpack bundles
 

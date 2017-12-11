@@ -5,12 +5,11 @@ const inquirer = require('inquirer');
 const figlet = require('figlet'); // creates ASCII art from text
 const shell = require('shelljs');
 const fs = require('fs');
-const { questions } = require('./lib/ques');
-const { getServerScript, getReduxServerScript } = require('./lib/server-script');
+const { questions } = require('../lib/ques');
+const { getServerScript, getReduxServerScript } = require('../lib/server-script');
 
 clear();
 console.log(chalk.cyanBright(figlet.textSync('Helium', { horizontalLayout: 'full' })));
-
 const getUserFiles = async () => {
   try {
     const user = await inquirer.prompt(questions);
@@ -23,7 +22,6 @@ const getUserFiles = async () => {
       const newPjFile = Object.assign({}, JSON.parse(result));
       newPjFile.scripts[userRes.script] = `./node_modules/.bin/webpack && babel-node ${SSRname}`;
       fs.writeFileSync('package.json', JSON.stringify(newPjFile, null, 2));
-
       if (userRes.reducer) fs.writeFileSync(`${SSRname}`, getReduxServerScript(userRes));
       else fs.writeFileSync(`${SSRname}`, getServerScript(userRes));
       shell.exec(`npm run ${userRes.script}`);
