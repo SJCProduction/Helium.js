@@ -14,8 +14,22 @@ const testPerf = async () => {
       const status = new Spinner('Retrieving Performance data...');
       status.start();
       const results = await testPromise();
+      //  RUN CSR FIRST, SSR Second
+      //  2 objects, SSR/CSR, find diff
+      //  Get Ratio percentage
+      // a global bin command to show results
       status.stop();
       ui.updateBottomBar(JSON.stringify(results, null, 1));
+      const resultsDisplay = {};      
+      let CSR = true;
+      if(!counter) {
+        resultsDisplay.CSR = results;
+        CSR = false;
+      } else {
+        resultsDisplay.SSR = results;
+        CSR = true;
+      };
+      console.log(resultsDisplay);
     }
   } catch (error) {
     throw error;
