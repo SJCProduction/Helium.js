@@ -2,9 +2,12 @@
 const inquirer = require('inquirer');
 const { test } = require('../lib/ques');
 const testPromise = require('../lib/testPerf');
+const fs = require('fs');
 const CLI = require('clui');
 
 const { Spinner } = CLI;
+
+const resultsDisplay = {};
 
 const testPerf = async () => {
   try {
@@ -20,13 +23,16 @@ const testPerf = async () => {
       // a global bin command to show results
       status.stop();
       ui.updateBottomBar(JSON.stringify(results, null, 1));
-      const resultsDisplay = {};      
       let CSR = true;
-      if(!counter) {
+      if(CSR) {
         resultsDisplay.CSR = results;
+        fs.appendFile
         CSR = false;
       } else {
         resultsDisplay.SSR = results;
+        let diff = resultsDisplay.CSR - resultsDisplay.SSRR;
+        let percent = (diff / resultsDisplay.CSR) * 100;
+        console.log(`This is the percent:, ${percent}%`)
         CSR = true;
       };
       console.log(resultsDisplay);
