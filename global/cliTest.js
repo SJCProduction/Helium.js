@@ -2,6 +2,10 @@
 const inquirer = require('inquirer');
 const { test } = require('../lib/ques');
 const testPromise = require('../lib/testPerf');
+const { renderTests } = require('../lib/argvs.js');
+const { argv } = require('yargs');
+// const fs = require('fs');
+// const path = require('path');
 const CLI = require('clui');
 
 const { Spinner } = CLI;
@@ -16,6 +20,8 @@ const testPerf = async () => {
       const results = await testPromise();
       status.stop();
       ui.updateBottomBar(JSON.stringify(results, null, 1));
+      const userSelection = argv.csr || argv.ssr || argv.diff;
+      renderTests(userSelection, results);
     }
   } catch (error) {
     throw error;

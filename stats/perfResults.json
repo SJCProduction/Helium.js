@@ -1,0 +1,16 @@
+{
+  "CSR": {
+    "webapi": {
+      "DOMLoading": 35,
+      "DOMContentLoaded": 147,
+      "DOMComplete": 147
+    }
+  },
+  "SSR": {
+    "webapi": {
+      "DOMLoading": 35,
+      "DOMContentLoaded": 147,
+      "DOMComplete": 147
+    }
+  }
+}

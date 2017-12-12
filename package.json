@@ -50,7 +50,8 @@
     "react-router-dom": "^4.2.2",
     "redux": "^3.7.2",
     "serialize-javascript": "^1.4.0",
-    "shelljs": "^0.7.8"
+    "shelljs": "^0.7.8",
+    "yargs": "^10.0.3"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
