@@ -2,7 +2,9 @@
 const inquirer = require('inquirer');
 const { test } = require('../lib/ques');
 const testPromise = require('../lib/testPerf');
+const { argv } = require('yargs');
 const fs = require('fs');
+const path = require('path');
 const CLI = require('clui');
 
 const { Spinner } = CLI;
@@ -26,20 +28,20 @@ const testPerf = async () => {
 
       if (argv.CSR) {
         resultsDisplay.CSR = results;
-        fs.appendFile('./stats/perfResults', JSON.stringify(resultsDisplay.CSR), (error) => {
+        fs.appendFile(path.join(__dirname, '../stats', 'perfResults.json'), JSON.stringify(resultsDisplay.CSR, null, 2), (error) => {
         console.log(error);
         })
       };
 
       if (argv.SSR) {
-        resultsDisplay.SSR = results
-        fs.appendFile('./stats/perfResults', JSON.stringify(resultsDisplay.SSR), (error) => {
+        resultsDisplay.SSR = results;
+        fs.appendFile(path.join(__dirname, '../stats', 'perfResults.json'), JSON.stringify(resultsDisplay.SSR, null, 2), (error) => {
           console.log(error);
         });
       };
 
       if (argv.diff) {
-        fs.readFile('./stats/perfResults', (error, data) => {
+        fs.readFile(path.join(__dirname, '../stats', 'perfResults.json'), (error, data) => {
           const parseStats = JSON.parse(data);
           const diff = {};
           diff.DOMLoading = ((parseStats.CSR.webapi.DOMLoading - parseStats.SSR.webapi.DOMLoading) / parseStats.CSR.webapi.DOMLoading) * 100;

@@ -1,0 +1,13 @@
+{
+  "webapi": {
+    "DOMLoading": "41ms",
+    "DOMContentLoaded": "86ms",
+    "DOMComplete": "146ms"
+  }
+}{
+  "webapi": {
+    "DOMLoading": "57ms",
+    "DOMContentLoaded": "156ms",
+    "DOMComplete": "157ms"
+  }
+}
