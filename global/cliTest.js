@@ -20,7 +20,7 @@ const testPerf = async () => {
       const results = await testPromise();
       status.stop();
       ui.updateBottomBar(JSON.stringify(results, null, 1));
-      const userSelection = argv.CSR || argv.SSR || argv.SSR;
+      const userSelection = argv.csr || argv.ssr || argv.diff;
       renderTests(userSelection, results);
     }
   } catch (error) {
