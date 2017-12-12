@@ -23,18 +23,44 @@ const testPerf = async () => {
       // a global bin command to show results
       status.stop();
       ui.updateBottomBar(JSON.stringify(results, null, 1));
-      let CSR = true;
-      if(CSR) {
+
+      if (argv.CSR) {
         resultsDisplay.CSR = results;
-        fs.appendFile
-        CSR = false;
-      } else {
-        resultsDisplay.SSR = results;
-        let diff = resultsDisplay.CSR - resultsDisplay.SSRR;
-        let percent = (diff / resultsDisplay.CSR) * 100;
-        console.log(`This is the percent:, ${percent}%`)
-        CSR = true;
+        fs.appendFile('./stats/perfResults', JSON.stringify(resultsDisplay.CSR), (error) => {
+        console.log(error);
+        })
       };
+
+      if (argv.SSR) {
+        resultsDisplay.SSR = results
+        fs.appendFile('./stats/perfResults', JSON.stringify(resultsDisplay.SSR), (error) => {
+          console.log(error);
+        });
+      };
+
+      if (argv.diff) {
+        fs.readFile('./stats/perfResults', (error, data) => {
+          const parseStats = JSON.parse(data);
+          const diff = {};
+          diff.DOMLoading = ((parseStats.CSR.webapi.DOMLoading - parseStats.SSR.webapi.DOMLoading) / parseStats.CSR.webapi.DOMLoading) * 100;
+          diff.DOMContentLoaded = ((parseStats.CSR.webapi.DOMContentLoaded - parseStats.SSR.webapi.DOMContentLoaded) / parseStats.CSR.webapi.DOMContentLoaded) * 100;
+          diff.DOMComplete = ((parseStats.CSR.webapi.DOMComplete - parseStats.SSR.webapi.DOMComplete) / parseStats.CSR.webapi.DOMComplete) * 100;
+          console.log(diff);
+        });
+      }
+
+
+      // let CSR = true;
+      // if(CSR) {
+      //   resultsDisplay.CSR = results;
+      //   CSR = false;
+      // } else {
+      //   resultsDisplay.SSR = results;
+      // let diff = resultsDisplay.CSR - resultsDisplay.SSRR;
+      //   let percent = (diff / resultsDisplay.CSR) * 100;
+      //   console.log(`This is the percent:, ${percent}%`)
+      //   CSR = true;
+      // };
       console.log(resultsDisplay);
     }
   } catch (error) {
