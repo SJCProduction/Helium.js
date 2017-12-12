@@ -1,16 +1,16 @@
 {
-  "CSR": {
+  "csr": {
     "webapi": {
-      "DOMLoading": 35,
-      "DOMContentLoaded": 147,
-      "DOMComplete": 147
+      "DOMLoading": 34,
+      "DOMContentLoaded": 75,
+      "DOMComplete": 125
     }
   },
-  "SSR": {
+  "ssr": {
     "webapi": {
-      "DOMLoading": 35,
-      "DOMContentLoaded": 147,
-      "DOMComplete": 147
+      "DOMLoading": 68,
+      "DOMContentLoaded": 187,
+      "DOMComplete": 187
     }
   }
 }
