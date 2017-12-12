@@ -9,9 +9,8 @@ const CLI = require('clui');
 
 const { Spinner } = CLI;
 
-const resultsDisplay = {};
-
 const testPerf = async () => {
+  
   try {
     const user = await inquirer.prompt(test);
     if (user) {
@@ -25,20 +24,24 @@ const testPerf = async () => {
       // a global bin command to show results
       status.stop();
       ui.updateBottomBar(JSON.stringify(results, null, 1));
-
+      let resultsDisplay = {};
       if (argv.CSR) {
         resultsDisplay.CSR = results;
-        fs.appendFile(path.join(__dirname, '../stats', 'perfResults.json'), JSON.stringify(resultsDisplay.CSR, null, 2), (error) => {
+        fs.writeFile(path.join(__dirname, '../stats', 'perfResults.json'), JSON.stringify(resultsDisplay, null, 2), (error) => {
         console.log(error);
-        })
+        });
       };
 
       if (argv.SSR) {
         resultsDisplay.SSR = results;
-        fs.appendFile(path.join(__dirname, '../stats', 'perfResults.json'), JSON.stringify(resultsDisplay.SSR, null, 2), (error) => {
-          console.log(error);
+        fs.readFile(path.join(__dirname, '../stats', 'perfResults.json'), 'utf8', (error, data) => {
+          const statsObj = Object.assign({}, JSON.parse(data));
+          statsObj.SSR = results;
+          fs.writeFile(path.join(__dirname, '../stats', 'perfResults.json'), JSON.stringify(statsObj, null, 2), (error) => {
+            console.log(error);
+          });
         });
-      };
+      }
 
       if (argv.diff) {
         fs.readFile(path.join(__dirname, '../stats', 'perfResults.json'), (error, data) => {
