@@ -1,3 +1,8 @@
+/*
+  Copyright (c) 2017 Shachy Rivas @shachyjr, Chris Li @cli53, Julie Moon @juliemoon
+  Licensed under the MIT License http://www.opensource.org/licenses/mit-license.php
+*/
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore } from 'redux';
