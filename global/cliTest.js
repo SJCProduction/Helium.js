@@ -1,11 +1,9 @@
 #! /usr/bin/env node
 const inquirer = require('inquirer');
 const { test } = require('../lib/ques');
-const testPromise = require('../lib/testPerf');
+const { testPromise } = require('../lib/testPerf');
 const { renderTests } = require('../lib/argvs.js');
 const { argv } = require('yargs');
-// const fs = require('fs');
-// const path = require('path');
 const CLI = require('clui');
 
 const { Spinner } = CLI;
