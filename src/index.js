@@ -1,3 +1,8 @@
+/*
+  Copyright (c) 2017 Shachy Rivas @shachyjr, Chris Li @cli53, Julie Moon @juliemoon
+  Licensed under the MIT License http://www.opensource.org/licenses/mit-license.php
+*/
+
 const React = require('react');
 const ReactDOMServer = require('react-dom/server');
 const { StaticRouter } = require('react-router-dom');

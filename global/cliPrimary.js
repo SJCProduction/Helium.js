@@ -1,4 +1,10 @@
 #!/usr/bin/env node
+
+/*
+  Copyright (c) 2017 Shachy Rivas @shachyjr, Chris Li @cli53, Julie Moon @juliemoon
+  Licensed under the MIT License http://www.opensource.org/licenses/mit-license.php
+*/
+
 const chalk = require('chalk');
 const clear = require('clear'); // clears the terminal screen
 const inquirer = require('inquirer');
@@ -20,7 +26,7 @@ const getUserFiles = async () => {
     fs.readFile('package.json', 'utf8', (error, result) => {
       if (error) throw error;
       const newPjFile = Object.assign({}, JSON.parse(result));
-      newPjFile.scripts[userRes.script] = `./node_modules/.bin/webpack && babel-node ${SSRname}`;
+      newPjFile.scripts[userRes.script] = `babel-node ${SSRname}`;
       fs.writeFileSync('package.json', JSON.stringify(newPjFile, null, 2));
       if (userRes.reducer) fs.writeFileSync(`${SSRname}`, getReduxServerScript(userRes));
       else fs.writeFileSync(`${SSRname}`, getServerScript(userRes));

@@ -7,3 +7,4 @@ webpack.config.js
 .eslintrc
 .gitignore
 .vscode
+stats
