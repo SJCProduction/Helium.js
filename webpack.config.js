@@ -41,7 +41,6 @@ module.exports = {
   plugins: [
     new webpack.optimize.ModuleConcatenationPlugin(),
     new UglifyJsPlugin({
-      extractComments: true,
       test: /\.jsx?$/,
       sourceMap: true,
     }),
