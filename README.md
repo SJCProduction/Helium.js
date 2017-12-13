@@ -80,12 +80,14 @@ inside the index file of React application */
 
 import helium, { getStore } from 'helium.js/react';
 
+// import your reducer
+
 helium(
-  <Provider store={getStore(reducer)}>
+  <Provider store={ getStore(reducer) }>
     <BrowserRouter>
       <App/>
     </BrowserRouter>
-  </Provider>, 
+  </Provider>,
   'root' 
 );
 ```
@@ -99,10 +101,11 @@ in as a second parameter to getStore invocation */
 
 import helium, { getStore } from 'helium.js/react';
 
+// import your reducer
 // declare your middlewares
 
 helium(
-  <Provider store={getStore(reducer, middleware)}>
+  <Provider store={ getStore(reducer, middleware) }>
     <BrowserRouter>
       <App/>
     </BrowserRouter>
