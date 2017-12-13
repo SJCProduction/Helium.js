@@ -193,7 +193,7 @@ helium.init({
   reducer,
 });
 
-// input api routes here
+// input API routes here
 
 app.get('*', helium.serveRedux);
 ```
