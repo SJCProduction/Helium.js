@@ -14,7 +14,9 @@ Helium.js is a node package that helps make your React application isomorphic an
 
 Leveraging server-side rendering can significantly improve first page load performance: render JavaScript templates on the server to deliver fast first render, and then use client-side templating once the page is loaded. However, performance benefits depend on the use case and server-side rendering is not a one size fits all design.
 
-* <b>Currently</b>: Includes server side rendering with support for React Router v4 and Redux v3
+* <b>Currently</b>: 
+  * Includes server side rendering with support for React Router v4 and Redux v3 using React Fiber - v16
+  * Perfomance metrics CLI
 * <b>Coming Soon:</b> Optimization for webpack bundles
 
 ## Table of Contents
@@ -37,10 +39,10 @@ Leveraging server-side rendering can significantly improve first page load perfo
 
 ### <a name="pre-req"></a>Prerequisites
 
-You will need to have react/react-dom and the babel-cli installed as dependencies.
+You will need to have react 16/react-dom and the babel-cli installed as dependencies.
 
 ```sh
-$ npm install react react-dom babel-cli --save
+$ npm install --save react react-dom babel-cli
 ```
 
 ### <a name="local-installation"></a>Local Installation 
