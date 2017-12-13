@@ -136,7 +136,7 @@ $ ./node_modules/.bin/he
 ```sh
 $ npm run helium
 ```
-###### 3. [Install globally](#global-installation) and run the command normally
+###### 3. [Install globally](#global-installation) and run the command
 ```sh
 $ he
 ```
