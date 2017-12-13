@@ -1,2 +1,5 @@
-/node_modules
+node_modules
+images
 .vscode
+.eslintrc
+.travis.yml
