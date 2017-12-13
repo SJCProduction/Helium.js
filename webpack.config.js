@@ -36,7 +36,7 @@ module.exports = {
       },
     ],
   },
-  externals: [{ React: 'commonjs react' }, nodeExternals()],
+  externals: [nodeExternals()],
   devtool: 'cheap-eval-source-map',
   plugins: [
     new webpack.optimize.ModuleConcatenationPlugin(),
