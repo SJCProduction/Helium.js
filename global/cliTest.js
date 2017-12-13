@@ -1,4 +1,10 @@
 #! /usr/bin/env node
+
+/*
+  Copyright (c) 2017 Shachy Rivas @shachyjr, Chris Li @cli53, Julie Moon @juliemoon
+  Licensed under the MIT License http://www.opensource.org/licenses/mit-license.php
+*/
+
 const inquirer = require('inquirer');
 const { test } = require('../lib/ques');
 const { testPromise } = require('../lib/testPerf');
