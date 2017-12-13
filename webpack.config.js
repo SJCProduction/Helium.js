@@ -22,7 +22,7 @@ module.exports = {
       {
         test: /\.css$/,
         use: ['style-loader', 'css-loader'],
-      }
+      },
     ],
   },
   externals: [{ React: 'commonjs react' }, nodeExternals()],
