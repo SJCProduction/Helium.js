@@ -33,12 +33,12 @@ const getUserFiles = async () => {
       fs.writeFileSync('package.json', JSON.stringify(newPjFile, null, 2));
       if (userRes.reducer) fs.writeFileSync(`${SSRname}`, getReduxServerScript(userRes));
       else fs.writeFileSync(`${SSRname}`, getServerScript(userRes));
-      shell.exec(`npm run helium:start`);
+      // shell.exec(`npm run helium:start`);
       console.log('heeet');
-      // cmd.get(`npm run start:helium`, (err, data, stderr) => {
-      //   if (err) throw new Error(err);
-      //   console.log(data, stderr);
-      // });
+      cmd.get(`npm run start:helium`, (err, data, stderr) => {
+        if (err) throw new Error(err);
+        console.log(data, stderr);
+      });
     });
   } catch (e) {
     throw e;
