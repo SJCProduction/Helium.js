@@ -33,6 +33,7 @@ Leveraging server-side rendering can significantly improve first page load perfo
     - [DIY](#diy)
       - [with Redux](#usage-on-s-with-redux)
 - [Running Your Application](#running)
+- [Performance Testing](#testing)
 - [More](#contributing)
 
 ## <a name="installation"></a>Installation
