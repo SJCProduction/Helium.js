@@ -28,7 +28,7 @@ const getUserFiles = async () => {
       if (error) throw error;
       const newPjFile = Object.assign({}, JSON.parse(result));
       newPjFile.scripts['helium:start'] = `nodemon ${SSRname} --exec babel-node --presets es2015`;
-      newPjFile.scripts['helium:build'] = 'webpack --config ./prod/helium.webpack.conf.js';
+      newPjFile.scripts['helium:build'] = 'webpack --config ./prod/helium.webpack.config.js';
       newPjFile.scripts['helium:serve'] = `node ./prod/${SSRname.slice(0, -3)}.prod.js`;
       fs.writeFileSync('package.json', JSON.stringify(newPjFile, null, 2));
       if (userRes.reducer) fs.writeFileSync(`${SSRname}`, getReduxServerScript(userRes));
@@ -39,7 +39,7 @@ const getUserFiles = async () => {
         });
       }
       fs.mkdirSync('./prod');
-      fs.writeFile('prod/helium.webpack.conf.js', getPackScript(SSRname, `${SSRname.slice(0, -3)}.prod.js`), (err) => {
+      fs.writeFile('prod/helium.webpack.config.js', getPackScript(SSRname, `${SSRname.slice(0, -3)}.prod.js`), (err) => {
         if (err) throw new Error(err);
       });
     });
