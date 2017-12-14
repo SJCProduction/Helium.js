@@ -36,7 +36,9 @@ module.exports = {
       },
     ],
   },
-  externals: [nodeExternals()],
+  externals: [nodeExternals({
+    whitelist: ['serialize-javascript'],
+  })],
   devtool: 'cheap-eval-source-map',
   plugins: [
     new webpack.optimize.ModuleConcatenationPlugin(),
