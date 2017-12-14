@@ -35,6 +35,7 @@
   },
   "homepage": "https://github.com/SJCProduction/Helium.js#readme",
   "dependencies": {
+    "babel-core": "^6.26.0",
     "chalk": "^2.3.0",
     "clear": "0.0.1",
     "clui": "^0.3.6",
