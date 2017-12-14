@@ -42,10 +42,10 @@ Leveraging server-side rendering can significantly improve first page load perfo
 
 ### <a name="pre-req"></a>Prerequisites
 
-You will need to have react 16/react-dom, the babel-cli, and two babel presets: es2015 and react installed as dependencies.
+You will need to have react 16/react-dom, the babel-cli, and two babel presets: env and react installed as dependencies.
 
 ```sh
-$ npm install --save react react-dom babel-cli babel-preset-es2015 babel-preset-react
+$ npm install --save react react-dom babel-cli babel-preset-env babel-preset-react
 ```
 
 ### <a name="local-installation"></a>Local Installation 
@@ -210,6 +210,45 @@ If CLI was not used, add a script to your package.json to run your serverfile us
 },
 ```
 
+## <a name="production"></a>Getting Production Ready
+
+### With the CLI:
+The CLI would have automatically added threee scripts including ```helium:start```, ```helium:build```, ```helium:serve```. 
+  1. Run ```helium:build``` to bundle your dynamically generated server file.
+  2. Run ```helium:serve``` to serve your production ready file.
+
+### Without the CLI: 
+  1. Add an [additional configuration to your webpack file](https://webpack.js.org/configuration/configuration-types/#exporting-multiple-configurations) to target the server file
+  ```javascript
+  {
+    entry: path.join(__dirname, '[server file name].js'),
+    target: 'node',
+    output: {
+      path: path.resolve(__dirname),
+      filename: '[bundled server file name].js',
+      libraryTarget: 'commonjs2',
+    },
+    module: {
+      rules: [
+        {
+          test: /\.jsx?$/,
+          loader: 'babel-loader',
+          exclude: /node_modules/,
+          query: {
+            presets: ['env', 'react'],
+          }
+        },
+      },
+    },
+  }
+  ```
+  2. Add the following scripts to your package.json.
+  ```json
+  "helium:build": "webpack --config ./prod/helium.webpack.conf.js",
+  "helium:serve": "node ./prod/[server file name].prod.js"
+  ```
+  3. Follow the two steps above.
+
 ## <a name="testing"></a>Performance Testing
 You can also perform simple Critical Rendering Path testing after setting up
 server-side render with helium using the following:
@@ -266,20 +305,6 @@ $ "diff": {
       "DOMComplete": 6.25%
     } 
   }
-```
-
-## <a name="production"></a>Getting Production Ready
-
-### With the CLI:
-The CLI would have automatically added threee scripts including ```helium:start```, ```helium:build```, ```helium:serve```. 
-  1. Run ```helium:build``` to bundle your dynamically generated server file.
-  2. Run ```helium:serve``` to serve your production ready file.
-
-### Without the CLI: 
-Add the following scripts to your package.json and follow the two steps above.
-```json
-"helium:build": "webpack --config ./prod/helium.webpack.conf.js",
-"helium:serve": "node ./prod/[server file name].prod.js"
 ```
 
 ## <a name="contributing"></a>Contributing
