@@ -10,7 +10,6 @@ const clear = require('clear'); // clears the terminal screen
 const inquirer = require('inquirer');
 const figlet = require('figlet'); // creates ASCII art from text
 const shell = require('shelljs');
-const cmd = require('node-cmd');
 const fs = require('fs');
 const { questions } = require('../lib/ques');
 const { getServerScript, getReduxServerScript } = require('../lib/serverScript');
