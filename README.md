@@ -213,16 +213,17 @@ You can also perform simple Critical Rendering Path testing after setting up
 server-side render with helium using the following:
 
 
-###### 1. Start your client-side application as you normally
+###### 1. Start your client-side application as usual
 ```sh
 $ npm run start
 ```
 
-###### 2. Run 'lift -csr' in a seperate terminal and walk through the CLI interface
+###### 2. Run ```lift -csr``` in a seperate terminal window and walk through the CLI interface
 ```sh
 $ lift -csr
 ```
-###### 3. After evaluating your application, you'll received results for the client-side rendering instance in the terminal
+
+###### 3. After evaluating your application, you will receive results for the client-side rendering instance in your terminal
 ```sh
 $  "csr": {
     "webapi": {
@@ -230,8 +231,10 @@ $  "csr": {
       "DOMContentLoaded": 75,
       "DOMComplete": 125
     }
+  }
 ```
-###### 4. Repeat steps 1-3 but running your server-side application instead
+
+###### 4. Repeat steps 1-3 running your server-side application instead
 ```sh
 $ npm run helium:start
 ```
@@ -241,13 +244,14 @@ $ lift -ssr
 ```sh
 $ "ssr": {
    "webapi": {
-     "DOMLoading": 10,
-     "DOMContentLoaded": 56,
-     "DOMComplete": 112
-   }
- }
+      "DOMLoading": 10,
+      "DOMContentLoaded": 56,
+      "DOMComplete": 112
+    }
+  }
 ```
-###### 5. After getting both the results of the CSR and SSR instances of your application, run lift -diff.
+
+###### 5. After receiving results for both instances, run ```lift -diff```.
 ```sh
 $ lift -diff
 ```
@@ -255,10 +259,10 @@ $ lift -diff
 # To run your application, type the following into your terminal
 $ "diff": {
    "webapi": {
-     "DOMLoading": 70.5882%,
-     "DOMContentLoaded": 25.3333%,
-     "DOMComplete": 6.25%
-   } 
+      "DOMLoading": 70.5882%,
+      "DOMContentLoaded": 25.3333%,
+      "DOMComplete": 6.25%
+    } 
   }
 ```
 
