@@ -230,20 +230,21 @@ $  "csr": {
       "DOMComplete": 125
     }
 ```
-###### 4. Repeat steps 1-3 but running your server-side application this time
+###### 4. Repeat steps 1-3 but running your server-side application instead
 ```sh
-$ npm run start:helium
+$ npm run helium:start
 ```
 ```sh
 $ lift -ssr
 ```
 ```sh
 $ "ssr": {
-    "webapi": {
-      "DOMLoading": 10,
-      "DOMContentLoaded": 56,
-      "DOMComplete": 112
-    } 
+   "webapi": {
+     "DOMLoading": 10,
+     "DOMContentLoaded": 56,
+     "DOMComplete": 112
+   }
+ }
 ```
 ###### 5. After getting both the results of the CSR and SSR instances of your application, run lift -diff.
 ```sh
@@ -251,12 +252,13 @@ $ lift -diff
 ```
 ```sh
 # To run your application, type the following into your terminal
-$ $ "diff": {
-    "webapi": {
-      "DOMLoading": 70.5882%,
-      "DOMContentLoaded": 25.3333%,
-      "DOMComplete": 6.25%
-    } 
+$ "diff": {
+   "webapi": {
+     "DOMLoading": 70.5882%,
+     "DOMContentLoaded": 25.3333%,
+     "DOMComplete": 6.25%
+   } 
+  }
 ```
 
 ## <a name="contributing"></a>Contributing
