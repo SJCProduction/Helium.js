@@ -38,13 +38,14 @@ const getUserFiles = async () => {
           shell.exec('npm run helium:start');
         });
       }
-      fs.mkdirSync('./prod');
+      console.log("exists:", fs.existsSync('./prod'));
+      if (!fs.existsSync('./prod')) fs.mkdirSync('./prod');
       fs.writeFile('prod/helium.webpack.config.js', getPackScript(SSRname, `${SSRname.slice(0, -3)}.prod.js`), (err) => {
         if (err) throw new Error(err);
       });
     });
   } catch (e) {
-    throw e;
+    throw new Error(e);
   }
 };
 getUserFiles();
