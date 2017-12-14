@@ -27,7 +27,7 @@ const getUserFiles = async () => {
     fs.readFile('package.json', 'utf8', (error, result) => {
       if (error) throw error;
       const newPjFile = Object.assign({}, JSON.parse(result));
-      newPjFile.scripts['helium:start'] = `nodemon ${SSRname} --exec babel-node --presets es2015`;
+      newPjFile.scripts['helium:start'] = `nodemon ${SSRname} --exec babel-node --presets env`;
       newPjFile.scripts['helium:build'] = 'webpack --config ./prod/helium.webpack.config.js';
       newPjFile.scripts['helium:serve'] = `node ./prod/${SSRname.slice(0, -3)}.prod.js`;
       fs.writeFileSync('package.json', JSON.stringify(newPjFile, null, 2));
