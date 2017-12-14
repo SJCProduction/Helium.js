@@ -207,9 +207,56 @@ If CLI was not used, add a script to your package.json to run your serverfile us
 },
 ```
 
+## <a name="testing"></a>Performance Testing
+You can also perform simple Critical Rendering Path testing after setting up
+server-side render with helium using the following:
+
+
+###### 1. Start your client-side application as you normally
+```sh
+$ npm run start
+```
+
+###### 2. Run 'lift -csr' in a seperate terminal and walk through the CLI interface
+```sh
+$ lift -csr
+```
+###### 3. After evaluating your application, you'll received results for the client-side rendering instance in the terminal
+```sh
+$  "csr": {
+    "webapi": {
+      "DOMLoading": 34,
+      "DOMContentLoaded": 75,
+      "DOMComplete": 125
+    }
+```
+###### 4. Repeat steps 1-3 but running your server-side application this time
+```sh
+$ npm run start:helium
+```
+```sh
+$ lift -ssr
+```
+```sh
+$ "ssr": {
+    "webapi": {
+      "DOMLoading": 10,
+      "DOMContentLoaded": 56,
+      "DOMComplete": 112
+    } 
+```
+###### 5. After getting both the results of the CSR and SSR instances of your application, run lift -diff.
+```sh
+$ lift -diff
+```
 ```sh
 # To run your application, type the following into your terminal
-$ npm run start:helium
+$ $ "diff": {
+    "webapi": {
+      "DOMLoading": 70.5882%,
+      "DOMContentLoaded": 25.3333%,
+      "DOMComplete": 6.25%
+    } 
 ```
 
 ## <a name="contributing"></a>Contributing
