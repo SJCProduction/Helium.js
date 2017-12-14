@@ -33,10 +33,8 @@ const getUserFiles = async () => {
       fs.writeFileSync('package.json', JSON.stringify(newPjFile, null, 2));
       if (userRes.reducer) fs.writeFileSync(`${SSRname}`, getReduxServerScript(userRes));
       else {
-        fs.writeFile(`${SSRname}`, getServerScript(userRes), (err) => {
-          if (err) throw new Error(err);
-          shell.exec('npm run helium:start');
-        });
+        fs.writeFileSync(`${SSRname}`, getServerScript(userRes));
+        shell.exec('npm run helium:start');
       }
       if (!fs.existsSync('./prod')) fs.mkdirSync('./prod');
       fs.writeFile('prod/helium.webpack.config.js', getPackScript(SSRname, `${SSRname.slice(0, -3)}.prod.js`), (err) => {
