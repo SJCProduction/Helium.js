@@ -10,6 +10,7 @@ const clear = require('clear'); // clears the terminal screen
 const inquirer = require('inquirer');
 const figlet = require('figlet'); // creates ASCII art from text
 const shell = require('shelljs');
+const cmd = require('node-cmd');
 const fs = require('fs');
 const { questions } = require('../lib/ques');
 const { getServerScript, getReduxServerScript } = require('../lib/server-script');
@@ -26,11 +27,18 @@ const getUserFiles = async () => {
     fs.readFile('package.json', 'utf8', (error, result) => {
       if (error) throw error;
       const newPjFile = Object.assign({}, JSON.parse(result));
-      newPjFile.scripts[userRes.script] = `babel-node ${SSRname}`;
+      newPjFile.scripts['helium:start'] = `nodemon ${SSRname} --exec babel-node --presets es2015`;
+      newPjFile.scripts['helium:build'] = `babel ${SSRname} -o ${SSRname.slice(0, -3)}.prod.js`;
+      newPjFile.scripts['helium:serve'] = `node ${SSRname.slice(0, -3)}.prod.js`;
       fs.writeFileSync('package.json', JSON.stringify(newPjFile, null, 2));
       if (userRes.reducer) fs.writeFileSync(`${SSRname}`, getReduxServerScript(userRes));
       else fs.writeFileSync(`${SSRname}`, getServerScript(userRes));
-      shell.exec(`npm run ${userRes.script}`);
+      shell.exec(`npm run helium:start`);
+      console.log('heeet');
+      // cmd.get(`npm run start:helium`, (err, data, stderr) => {
+      //   if (err) throw new Error(err);
+      //   console.log(data, stderr);
+      // });
     });
   } catch (e) {
     throw e;
