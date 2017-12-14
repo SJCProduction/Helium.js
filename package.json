@@ -35,11 +35,13 @@
   },
   "homepage": "https://github.com/SJCProduction/Helium.js#readme",
   "dependencies": {
+    "babel-core": "^6.26.0",
     "chalk": "^2.3.0",
     "clear": "0.0.1",
     "clui": "^0.3.6",
     "figlet": "^1.2.0",
     "inquirer": "^4.0.0",
+    "node-cmd": "^3.0.0",
     "puppeteer": "^0.13.0",
     "react": "^16.1.1",
     "react-dom": "^16.1.1",
