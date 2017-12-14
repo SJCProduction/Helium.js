@@ -33,16 +33,17 @@ Leveraging server-side rendering can significantly improve first page load perfo
     - [DIY](#diy)
       - [with Redux](#usage-on-s-with-redux)
 - [Running Your Application](#running)
+- [Getting Production Ready](#production)
 - [More](#contributing)
 
 ## <a name="installation"></a>Installation
 
 ### <a name="pre-req"></a>Prerequisites
 
-You will need to have react 16/react-dom and the babel-cli installed as dependencies.
+You will need to have react 16/react-dom, the babel-cli, and two babel presets: es2015 and react installed as dependencies.
 
 ```sh
-$ npm install --save react react-dom babel-cli
+$ npm install --save react react-dom babel-cli babel-preset-es2015 babel-preset-react
 ```
 
 ### <a name="local-installation"></a>Local Installation 
@@ -203,13 +204,27 @@ app.get('*', helium.serveRedux);
 If CLI was not used, add a script to your package.json to run your serverfile using babel-node.
 ```json
 "scripts": {
-    "start:helium": "babel-node [server file name].js",
+    "helium:start": "nodemon [server file name].js --exec babel-node --presets es2015",
 },
 ```
 
 ```sh
 # To run your application, type the following into your terminal
 $ npm run start:helium
+```
+
+## <a name="production"></a>Getting Production Ready
+
+### With the CLI:
+The CLI would have automatically added threee scripts including ```helium:start```, ```helium:build```, ```helium:serve```. 
+  1. Run ```helium:build``` to bundle your dynamically generated server file.
+  2. Run ```helium:serve``` to serve your production ready file.
+
+### Without the CLI: 
+Add the following scripts to your package.json and follow the two steps above.
+```json
+"helium:build": "webpack --config ./prod/helium.webpack.conf.js",
+"helium:serve": "node ./prod/[server file name].prod.js"
 ```
 
 ## <a name="contributing"></a>Contributing
