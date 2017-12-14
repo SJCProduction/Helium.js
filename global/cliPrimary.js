@@ -13,7 +13,8 @@ const shell = require('shelljs');
 const cmd = require('node-cmd');
 const fs = require('fs');
 const { questions } = require('../lib/ques');
-const { getServerScript, getReduxServerScript } = require('../lib/server-script');
+const { getServerScript, getReduxServerScript } = require('../lib/serverScript');
+const { getPackScript } = require('../lib/packScript');
 
 clear();
 console.log(chalk.cyanBright(figlet.textSync('Helium', { horizontalLayout: 'full' })));
@@ -28,21 +29,34 @@ const getUserFiles = async () => {
       if (error) throw error;
       const newPjFile = Object.assign({}, JSON.parse(result));
       newPjFile.scripts['helium:start'] = `nodemon ${SSRname} --exec babel-node --presets es2015`;
-      newPjFile.scripts['helium:build'] = `babel ${SSRname} -o ${SSRname.slice(0, -3)}.prod.js`;
+      // newPjFile.scripts['helium:build'] = `babel ${SSRname} -o ${SSRname.slice(0, -3)}.prod.js`;
+      newPjFile.scripts['helium:build'] = `webpack --config `;
       newPjFile.scripts['helium:serve'] = `node ${SSRname.slice(0, -3)}.prod.js`;
       fs.writeFileSync('package.json', JSON.stringify(newPjFile, null, 2));
       if (userRes.reducer) fs.writeFileSync(`${SSRname}`, getReduxServerScript(userRes));
-      else fs.writeFileSync(`${SSRname}`, getServerScript(userRes));
-      // shell.exec(`npm run helium:start`);
-      console.log('heeet');
-      cmd.get(`npm run start:helium`, (err, data, stderr) => {
-        if (err) throw new Error(err);
-        console.log(data, stderr);
-      });
+      else fs.writeFile(`${SSRname}`, getServerScript(userRes));
+        // fs.writeFile(`${SSRname}`, getServerScript(userRes), (err) => {
+        //   if (err) throw new Error(err);
+        //   shell.exec('npm run helium:start');
+        //   console.log('heeet');
+        //   // cmd.get('npm run start:helium', (err, data, stderr) => {
+        //   //   if (err) throw new Error(err);
+        //   //   console.log(data, stderr);
+        //   // });
+        // });
+      
+      shell.exec('npm run helium:start');
+
+
+
+      // fs.writeFile('prod/helium.webpack.conf.js', getPackScript(SSRname, `${SSRname.slice(0, -3)}.prod.js`), (err) => {
+      //   if (err) throw new Error(err);
+      // });
     });
   } catch (e) {
     throw e;
   }
+  
 };
 getUserFiles();
 
